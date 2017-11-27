@@ -9,7 +9,7 @@ jobs:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
-          PGUSER: circleci-demo-ruby
+          PGUSER: HETIC-G1-08
           RAILS_ENV: test
       - image: circleci/postgres:9.5-alpine
         environment:
@@ -51,10 +51,10 @@ jobs:
       #     command: yarn install
 
       # Store yarn / webpacker cache
-      - save_cache:
-          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.yarn-cache
+      # - save_cache:
+      #     key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+      #     paths:
+      #       - ~/.yarn-cache
 
       - run:
           name: Wait for DB
