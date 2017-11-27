@@ -12,7 +12,7 @@ jobs:
       - image: circleci/postgres:9.5-alpine
         environment:
           POSTGRES_USER: circleci-demo-ruby
-          POSTGRES_DB: rails_blog
+          POSTGRES_DB: HETIC-G1-08_test
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
@@ -34,11 +34,11 @@ jobs:
           - vendor/bundle
 
       # Store yarn / webpacker cache
-      - type: cache-save
-        name: Store yarn cache
-        key: rails-demo-yarn-{{ checksum "yarn.lock" }}
-        paths:
-          - ~/.yarn-cache
+      # - type: cache-save
+      #   name: Store yarn cache
+      #   key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+      #   paths:
+      #     - ~/.yarn-cache
 
       - run:
           name: Wait for DB
