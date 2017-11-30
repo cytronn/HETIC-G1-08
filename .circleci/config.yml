@@ -57,25 +57,23 @@ jobs:
       #       - ~/.yarn-cache
 
       - run:
-          name: Wait for Database
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-          
-      - run:
-          name: Create Database
-          command: bundle exec rake db:create
-
-      - run:
-          name: Database setup
-          command: bin/rails db:schema:load --trace
+          name: Initialize Database
+          command:
+            dockerize -wait tcp://localhost:5432 -timeout 1m
+            bundle exec rake db:create
+            command: bin/rails db:schema:load --trace
 
       # Run rspec in parallel
       - type: shell
         command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
           bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
                             --out test_results/rspec.xml \
                             --format progress \
-                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+                            $TEST_FILES
+
       # Save test results for timing analysis
       - store_test_results:
           path: test_results
