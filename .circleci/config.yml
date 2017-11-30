@@ -21,7 +21,7 @@ jobs:
 
       # Which version of bundler?
       - run:
-          name: Which bundler?
+          name: Which Bundler?
           command: bundle -v
 
       # Restore bundle cache
@@ -57,8 +57,12 @@ jobs:
       #       - ~/.yarn-cache
 
       - run:
-          name: Wait for DB
+          name: Wait for Database
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
+          
+      - run 
+          name: Create Database
+          command: bundle exec rake db:create
 
       - run:
           name: Database setup
