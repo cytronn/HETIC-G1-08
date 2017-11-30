@@ -1,0 +1,40 @@
+<h1>Edit article</h1>
+
+<%= form_with(model: @dish) do |form| %>
+
+  <% if @dish.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@dish.errors.count, "error") %> prohibited
+        this dish from being saved:
+      </h2>
+      <ul>
+        <% @dish.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+
+  <p>
+    <%= form.label :portions %><br>
+    <%= form.number_field :portions %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+
+<% end %>
+
+<%= link_to 'Back', dishes_path %>
