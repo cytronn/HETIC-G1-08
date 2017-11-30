@@ -60,7 +60,7 @@ jobs:
           name: Wait for Database
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
           
-      - run 
+      - run:
           name: Create Database
           command: bundle exec rake db:create
 
