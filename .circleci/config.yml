@@ -9,7 +9,7 @@ jobs:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
-          PGUSER: HETIC-G1-08
+          PGUSER: HETIC-G1-08_test
           RAILS_ENV: test
       - image: circleci/postgres:9.5-alpine
         environment:
@@ -21,7 +21,7 @@ jobs:
 
       # Which version of bundler?
       - run:
-          name: Which bundler?
+          name: Which Bundler?
           command: bundle -v
 
       # Restore bundle cache
@@ -57,28 +57,23 @@ jobs:
       #       - ~/.yarn-cache
 
       - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+          name: Initialize Database
+          command:
+            dockerize -wait tcp://localhost:5432 -timeout 1m
+            bundle exec rake db:create
+            bin/rails db:schema:load --trace
 
-      - run:
-          name: Database setup
-          command: bin/rails db:schema:load --trace
-
-      # run tests!
-      - run:
-          name: Run Tests
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-
-            bundle exec rspec --format documentation \
+      # Run rspec in parallel
+      - type: shell
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+          bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            -- $(sed -e 's/\n/\\n/' -e 's/ /\ /' <<< "${TEST_FILES}")
+                            --out test_results/rspec.xml \
+                            --format progress \
+                            $TEST_FILES
 
-      # collect reports
+      # Save test results for timing analysis
       - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+          path: test_results
