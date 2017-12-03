@@ -33,6 +33,7 @@ gem 'jbuilder', '~> 2.5'
 # Load bootstrap
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'sprockets-es6'
+gem 'jquery-rails', "~> 4.3.1"
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 
 # Use Capistrano for deployment
