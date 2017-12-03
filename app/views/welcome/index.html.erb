@@ -1,19 +1,6 @@
-<div class="container">
-  <% if @user %>  
-    <div class="alert alert-info" role="alert">
-      <strong>Heads up!</strong> <%= @user.first_name %> <%= @user.last_name %>
-      <%= link_to 'Déconnexion', destroy_user_session_path, method: :delete, class: 'btn btn-secondary' %>
-    </div>
-  <% else %>
-    <%= link_to 'Inscription', new_user_registration_path %> 
-    <%= link_to 'Identification', new_user_session_path %>
-  <% end %>
-  <div class="jumbotron"> 
-    <h1 class="display-3">HETIC-G1-08</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  </div>
-  <p class="lead">
-  </p>
+<div class="jumbotron"> 
+  <h1 class="display-3">HETIC-G1-08</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
 </div>
