@@ -5,8 +5,8 @@
 <% if @dish.errors.any? %>
 <div id="error_explanation">
   <h2>
-    Watch out 😮 ! <br />
-    <%= pluralize(@dish.errors.count, "errors") %> prevent us from accepting your dish:
+    Watch out! 😮
+    <%= pluralize(@dish.errors.count, "error") %> prevent us from accepting your dish:
   </h2>
   <ul>
     <% @dish.errors.full_messages.each do |msg| %>
