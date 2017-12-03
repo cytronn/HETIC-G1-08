@@ -5,8 +5,8 @@
 <% if @dish.errors.any? %>
 <div id="error_explanation">
   <h2>
-    <%= pluralize(@dish.errors.count, "error") %> prohibited
-    this dish from being saved:
+    Watch out 😮 ! <br />
+    <%= pluralize(@dish.errors.count, "errors") %> prevent us from accepting your dish:
   </h2>
   <ul>
     <% @dish.errors.full_messages.each do |msg| %>
@@ -27,8 +27,18 @@
 </p>
 
 <p>
+  <%= form.label :ingredients %><br>
+  <%= form.text_area :ingredients %>
+</p>
+
+<p>
   <%= form.label :portions %><br>
   <%= form.number_field :portions %>
+</p>
+
+<p>
+  <%= form.label :delivery_at %><br>
+  <%= select_date Date.today, prefix: :delivery_at %>
 </p>
 
 <p>

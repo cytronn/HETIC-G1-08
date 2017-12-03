@@ -1,15 +1,24 @@
 class DishesController < ApplicationController
+  
+  def index
+    @dishes = Dish.all
+  end
+  
+  def show
+    @dish = Dish.find(params[:id])
+  end
+  
   def new
     @dish = Dish.new
   end
 
-  def index
-    @dishes = Dish.all
+  def edit
+    @dish = Dish.find(params[:id])
   end
 
   def create
-    print(article_params)
-    @dish = Dish.new(article_params)
+    print(dish_params)
+    @dish = Dish.new(dish_params)
     if @dish.save
       redirect_to @dish
     else
@@ -17,18 +26,12 @@ class DishesController < ApplicationController
     end
   end
 
-  def show
-    @dish = Dish.find(params[:id])
-  end
-
-  def edit
-    @dish = Dish.find(params[:id])
-  end
+  # TODO: Fix update (ingredients & dates)
 
   def update
     @dish = Dish.find(params[:id])
-    print(article_params)
-    if @dish.update(article_params)
+    print(dish_params)
+    if @dish.update(dish_params)
       redirect_to @dish
     else
       render 'edit'
@@ -43,7 +46,7 @@ class DishesController < ApplicationController
   end
 
   private
-    def article_params
-      params.require(:dish).permit(:name, :description, :portions)
+    def dish_params
+      params.require(:dish).permit(:name, :description, :ingredients, :portions, :delivery_at)
     end
 end
