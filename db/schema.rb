@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20171203110833) do
     t.string "ingredients"
     t.date "delivery_at"
   end
-  
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
