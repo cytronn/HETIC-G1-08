@@ -17,3 +17,7 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore env file
+.env
+HETIC-G1-08_development

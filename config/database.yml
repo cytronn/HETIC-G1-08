@@ -23,6 +23,7 @@ default: &default
 
 development:
   <<: *default
+  adapter: sqlite3
   database: HETIC-G1-08_development
 
   # The specified database role being used to connect to postgres.

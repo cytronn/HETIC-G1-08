@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  # get 'welcome/index'
+  devise_for :users
+  resources :users
   resources :dishes
+  as :user do 
+    get 'profile/edit' => 'devise/registrations#edit'
+  end
+  # get 'welcome/index'
   root 'welcome#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing
+  resources :charges
 end

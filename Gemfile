@@ -29,21 +29,40 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+
+# Use stripe to provice a streamlined, mobile-ready payment experience.
+gem 'stripe'
+
+# Load bootstrap
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'sprockets-es6'
+gem 'jquery-rails', "~> 4.3.1"
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem 'bootstrap_form'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#Authentification
+
+gem 'devise'
+
 group :production do
+  # Use postgresql as the database for Active Record
   gem 'pg', '~> 0.18'
   gem 'rails_12factor'
 end
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'rspec_junit_formatter'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # A Ruby gem to load environment variables from `.env`
+  gem 'dotenv-rails'
 end
 
 group :development do
