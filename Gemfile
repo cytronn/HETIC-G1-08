@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Use stripe to provice a streamlined, mobile-ready payment experience.
+gem 'stripe'
 
 # Load bootstrap
 gem 'sprockets-rails', :require => 'sprockets/railtie'
@@ -57,6 +59,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # A Ruby gem to load environment variables from `.env`
+  gem 'dotenv-rails'
 end
 
 group :development do
