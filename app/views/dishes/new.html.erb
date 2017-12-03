@@ -1,0 +1,47 @@
+<h1>Ajoutez votre plat</h1>
+
+<%= form_with scope: :dish, url: dishes_path, local: true do |form| %>
+
+<% if @dish.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    Watch out 😮 ! <br />
+    <%= pluralize(@dish.errors.count, "errors") %> prevent us from accepting your dish:
+  </h2>
+  <ul>
+    <% @dish.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<p>
+  <%= form.label :name %><br>
+  <%= form.text_field :name %>
+</p>
+
+<p>
+  <%= form.label :description %><br>
+  <%= form.text_area :description %>
+</p>
+
+<p>
+  <%= form.label :ingredients %><br>
+  <%= form.text_area :ingredients %>
+</p>
+
+<p>
+  <%= form.label :portions %><br>
+  <%= form.number_field :portions %>
+</p>
+
+<p>
+  <%= form.label :delivery_at %><br>
+  <%= select_date Date.today, prefix: :delivery_at %>
+</p>
+
+<p>
+  <%= form.submit %>
+</p>
+<% end %>

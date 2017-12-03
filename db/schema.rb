@@ -10,8 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130141718) do
+ActiveRecord::Schema.define(version: 20171203110833) do
 
+  create_table "dishes", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "portions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ingredients"
+    t.date "delivery_at"
+  end
+  
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

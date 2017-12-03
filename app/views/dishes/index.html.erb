@@ -1,0 +1,27 @@
+
+<h1>Les plats disponibles</h1>
+
+<%= link_to 'Add a dish', new_dish_path %>
+<table>
+ <tr>
+   <th>Name</th>
+   <th>Description</th>
+   <th>Ingredients</th>
+   <th>Portions</th>
+   <th>Delivered on</th>
+ </tr>
+
+ <% @dishes.each do |dish| %>
+   <tr>
+     <td><%= dish.name %></td>
+     <td><%= dish.description %></td>
+     <td><%= dish.ingredients %></td>
+     <td><%= dish.portions %></td>
+     <td><%= dish.delivery_at %></td>
+     <td><%= link_to 'Show', dish_path(dish) %></td>
+     <td><%= link_to 'Edit', edit_dish_path(dish) %></td>
+     <td><%= link_to 'Destroy', dish_path(dish),method: :delete %></td>
+  </tr>
+   </tr>
+ <% end %>
+</table>
