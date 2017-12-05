@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20171203125548) do
     t.datetime "updated_at", null: false
     t.string "ingredients"
     t.date "delivery_at"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_dishes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
