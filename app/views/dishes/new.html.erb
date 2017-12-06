@@ -1,47 +1,20 @@
-<h1>Ajoutez votre plat</h1>
-
-<%= form_with scope: :dish, url: dishes_path, local: true do |form| %>
-
-<% if @dish.errors.any? %>
-<div id="error_explanation">
-  <h2>
-    Watch out! 😮
-    <%= pluralize(@dish.errors.count, "error") %> prevent us from accepting your dish:
-  </h2>
-  <ul>
-    <% @dish.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-
-<p>
-  <%= form.label :name %><br>
-  <%= form.text_field :name %>
-</p>
-
-<p>
-  <%= form.label :description %><br>
-  <%= form.text_area :description %>
-</p>
-
-<p>
-  <%= form.label :ingredients %><br>
-  <%= form.text_area :ingredients %>
-</p>
-
-<p>
-  <%= form.label :portions %><br>
-  <%= form.number_field :portions %>
-</p>
-
-<p>
-  <%= form.label :delivery_at %><br>
-  <%= form.date_select :delivery_at %>
-</p>
-
-<p>
-  <%= form.submit %>
+<h1>Add a dish</h1>
+<%= bootstrap_form_for(@dish) do |f| %>
+  <% if @dish.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dish.errors.count, "error") %> prohibited this dish from being saved:</h2>
+      <ul>
+      <% @dish.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.text_field :name, id: :dish_name %>
+  <%= f.text_field :description, id: :dish_description %>
+  <%= f.text_area :ingredients, id: :dish_ingredients %>
+  <%= f.number_field :portions, id: :dish_portions %>
+  <%= f.date_select :delivery_at, id: :dish_delivery_at %>
+  <%= f.submit 'Save', class: 'btn btn-success' %>
 </p>
 <% end %>
