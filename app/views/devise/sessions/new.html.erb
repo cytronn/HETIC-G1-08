@@ -1,8 +1,8 @@
-<h2>Log in</h2>
-  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<h1>Log in</h1>
+<%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <%= f.email_field :email %>     
   <%= f.password_field :password %>
-  <%= f.submit "Sign in" %>
+  <%= f.submit "Sign in", class: 'btn btn-success' %>
 <% end %>
-
+<hr>
 <%= render "devise/shared/links" %>
