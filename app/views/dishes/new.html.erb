@@ -1,5 +1,5 @@
 <h1>Add a dish</h1>
-<%= bootstrap_form_for(@dish) do |f| %>
+<%= bootstrap_form_for @dish, :html => {:multipart => true} do |f| %>
   <% if @dish.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@dish.errors.count, "error") %> prohibited this dish from being saved:</h2>
@@ -10,6 +10,7 @@
       </ul>
     </div>
   <% end %>
+  <%= f.file_field :cover %>
   <%= f.text_field :name, id: :dish_name %>
   <%= f.text_field :description, id: :dish_description %>
   <%= f.text_area :ingredients, id: :dish_ingredients %>
