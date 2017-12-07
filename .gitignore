@@ -22,3 +22,6 @@
 .env
 HETIC-G1-08_development
 HETIC-G1-08_test
+
+# Ignore public
+/public/uploads/*

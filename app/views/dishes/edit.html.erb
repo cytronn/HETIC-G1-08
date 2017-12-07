@@ -17,6 +17,16 @@
   <% end %>
 
   <p>
+    <%= form.label :cover %><br>
+      <% unless @dish.cover.url.nil? %>
+        <img class="img-fluid" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
+        <%= form.file_field :cover %>
+      <% else %>
+        <%= form.file_field :cover %>
+      <% end %>
+  </p>
+
+  <p>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
   </p>
