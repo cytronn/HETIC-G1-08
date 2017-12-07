@@ -57,6 +57,7 @@ class OrdersController < ApplicationController
       .permit(:note, :quantity)
       .merge(dish_id: params[:dish_id])
       .merge(user_id: current_user.id)
+      .merge(status: 'pending')
     end
 
   rescue Stripe::CardError => e
