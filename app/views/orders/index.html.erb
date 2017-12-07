@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+<div class="d-flex justify-content-start align-items-center mb-3">
+  <h1>Orders</h1>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">User</th>
+      <th scope="col">Note</th>
+      <th scope="col">Quantity</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td scope="row"><%= order.name %></td>
+        <td><%= order.user_id %></td>
+        <td><%= order.note %></td>
+        <td><%= order.quantity %></td>
+        <td><%= link_to 'Show', order %></td>
+        <td><%= link_to 'Edit', edit_order_path(order) %></td>
+        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
