@@ -1,20 +1,16 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-  <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, inline_errors: true) do |f| %>
-    <%= devise_error_messages! %>  
-    <%= f.errors_on :tasks %>
-    <%= f.email_field :email %>
-    <%= f.text_field :first_name %>    
-    <%= f.text_field :last_name %>        
-    <%= f.password_field :current_password %>       
-    <%= f.password_field :password %>
-    <%= f.password_field :password_confirmation %>   
-    <!-- <%= f.check_box :remember_me %> -->
-    <%= f.submit "Update" %>
-  <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
+<h1>Edit <%= resource_name.to_s.humanize %></h1>
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, inline_errors: true) do |f| %>
+  <%= devise_error_messages! %>  
+  <%= f.errors_on :tasks %>
+  <%= f.email_field :email %>
+  <%= f.text_field :first_name %>    
+  <%= f.text_field :last_name %>        
+  <%= f.password_field :current_password %>       
+  <%= f.password_field :password %>
+  <%= f.password_field :password_confirmation %>   
+  <%= f.submit "Update", class: "btn btn-success"  %>
+<% end %>
+<hr>
+<strong>Delete my account</strong>
+<p>Unhappy? <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 <%= link_to "Back", :back %>

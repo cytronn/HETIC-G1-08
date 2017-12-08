@@ -1,33 +1,28 @@
-
-<%= link_to '↩ Dishes list', dishes_path %>
-<p>
-  <strong>Dish name:</strong>
-  <%= @dish.name %>
-</p>
-  
-<p>
-  <strong>Description:</strong>
-  <%= @dish.description %>
-</p>
-
-<p>
-  <strong>Ingredients:</strong>
-  <%= @dish.ingredients %>
-</p>
-
-<p>
-  <strong>Delivery at:</strong>
-  <%= @dish.delivery_at %>
-</p>
-
-<p>
-  <strong>Remaining portions:</strong>
-  <%= @dish.portions %>
-</p>
-
-<p>
-    <strong>Tags:</strong>
-    <%= raw tag_links(@dish.all_tags) %>
-  </p>
-
-
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
+  <li class="breadcrumb-item active"><%= @dish.name %></li>
+</ol>
+<div class="mt-4">
+  <div class="row">
+    <div class="col-sm-6">
+      <h1><%= @dish.name %></h1>
+    </div>
+    <div class="col-sm-6 text-right">
+      <%= link_to 'Order now!', new_dish_order_url(@dish.id), class: 'btn btn-primary ml-auto p-2' %>
+    </div>
+  </div>
+  <img class="img-fluid" style="height: 700px; width: 100%; display: block; background-color: grey; background: url(<%= @dish.cover.url %>) no-repeat center fixed; background-size: cover" data-holder-rendered="true">
+  <dl class="row mt-5">
+    <dt class="col-sm-3">Cooker ID</dt>
+    <dd class="col-sm-9"><%= @dish.user_id %></dd>
+    <dt class="col-sm-3">Description</dt>
+    <dd class="col-sm-9"><%= @dish.description %></dd>
+    <dt class="col-sm-3">Ingredients</dt>
+    <dd class="col-sm-9"><%= @dish.ingredients %></dd>
+    <dt class="col-sm-3">Delivery at</dt>
+    <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
+    <dt class="col-sm-3">Remaining portions</dt>
+    <dd class="col-sm-9"><%= @dish.portions %></dd>
+    <dd class="col-sm-9"><%= raw tag_links(@dish.all_tags) %></dd>
+  </dl>
+</div>

@@ -1,5 +1,4 @@
 class DishesController < ApplicationController
-  
   def index
     if params[:tag]
       @dishes = Dish.tagged_with(params[:tag])
@@ -21,8 +20,9 @@ class DishesController < ApplicationController
   end
 
   def create
-    print(dish_params)
-    @dish = Dish.new(dish_params)
+    @user = User.find(current_user.id)
+    @dish = @user.dishes.create(dish_params)
+
     if @dish.save
       redirect_to @dish
     else
@@ -30,11 +30,9 @@ class DishesController < ApplicationController
     end
   end
 
-  # TODO: Fix update (ingredients & dates)
-
   def update
     @dish = Dish.find(params[:id])
-    print(dish_params)
+
     if @dish.update(dish_params)
       redirect_to @dish
     else
@@ -51,7 +49,7 @@ class DishesController < ApplicationController
 
   private
     def dish_params
-      params.require(:dish).permit(:name, :description, :ingredients, :portions, :delivery_at, :all_tags =>[])
+      params.require(:dish).permit(:name, :description, :ingredients, :portions, :delivery_at, :cover, :all_tags =>[])
     end
 
 end

@@ -4,10 +4,10 @@
 
   <% if @dish.errors.any? %>
     <div id="error_explanation">
-      <h2>
-        <%= pluralize(@dish.errors.count, "error") %> prohibited
-        this dish from being saved:
-      </h2>
+        <h2>
+          Watch out! 😮
+          <%= pluralize(@dish.errors.count, "error") %> prevent us from accepting your dish:
+        </h2>
       <ul>
         <% @dish.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -15,6 +15,16 @@
       </ul>
     </div>
   <% end %>
+
+  <p>
+    <%= form.label :cover %><br>
+      <% unless @dish.cover.url.nil? %>
+        <img class="img-fluid" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
+        <%= form.file_field :cover %>
+      <% else %>
+        <%= form.file_field :cover %>
+      <% end %>
+  </p>
 
   <p>
     <%= form.label :name %><br>
@@ -38,7 +48,7 @@
 
   <p>
     <%= form.label :delivery_at %><br>
-    <%= select_date Date.today, prefix: :delivery_at %>
+    <%= form.date_select :delivery_at %>
   </p>
 
   <p>

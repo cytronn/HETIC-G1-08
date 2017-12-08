@@ -1,29 +1,27 @@
-
-<h1>Les plats disponibles</h1>
-
-<%= link_to 'Add a dish', new_dish_path %>
-<table>
- <tr>
-   <th>ID</th>
-   <th>Name</th>
-   <th>Description</th>
-   <th>Ingredients</th>
-   <th>Portions</th>
-   <th>Delivered on</th>
- </tr>
-
- <% @dishes.each do |dish| %>
-   <tr>
-     <td><%= dish.id %></td>
-     <td><%= dish.name %></td>
-     <td><%= dish.description %></td>
-     <td><%= dish.ingredients %></td>
-     <td><%= dish.portions %></td>
-     <td><%= dish.delivery_at %></td>
-     <td><%= link_to 'Show', dish_path(dish) %></td>
-     <td><%= link_to 'Edit', edit_dish_path(dish) %></td>
-     <td><%= link_to 'Destroy', dish_path(dish),method: :delete %></td>
-  </tr>
-   </tr>
- <% end %>
-</table>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Dishes</li>
+</ol>
+<div class="mt-4">
+  <h1>Available dishes</h1>
+  <%= link_to '+ Add a dish', new_dish_path %>
+  <div class="d-flex flex-row mt-5">
+    <% @dishes.each do |dish| %>
+      <div class="card" style="width: 20rem;">
+        <img class="card-img-top" src="<%= dish.cover.url %>" alt="<%= dish.cover.path %>">
+        <div class="card-block">
+          <h4 class="card-title"><%= dish.name %></h4>
+          <p class="card-text"><%= dish.description %></p>
+          <div class="row">
+            <div class="col-sm-6">
+              <td><%= link_to 'See details', dish_path(dish), :class => "btn btn-primary" %></td>
+            </div>
+            <div class="col-sm-6 text-center">
+              <td><%= link_to 'Edit', edit_dish_path(dish), :class => "btn btn-outline-warning" %></td>
+              <td><%= link_to 'Delete', dish_path(dish), method: :delete, :class => "btn btn-outline-danger" %></td>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
