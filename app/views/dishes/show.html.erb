@@ -23,5 +23,6 @@
     <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
     <dt class="col-sm-3">Remaining portions</dt>
     <dd class="col-sm-9"><%= @dish.portions %></dd>
+    <dd class="col-sm-9"><%= raw tag_links(@dish.all_tags) %></dd>
   </dl>
 </div>

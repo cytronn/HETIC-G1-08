@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   as :user do 
     get 'profile/edit' => 'devise/registrations#edit'
   end
-  
+
+  #search by tags routes 
+  get 'tags/*tag', to: 'dishes#index', as: "tag"
+    
   # charges
   resources :charges, only: [:new, :create]
 
