@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   def index
-    @dishes = Dish.all
+    @dishes = Dish.where("portions > 0")
   end
   
   def show

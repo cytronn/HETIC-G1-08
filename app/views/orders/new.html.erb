@@ -9,6 +9,7 @@
     <div class="card p-4" style="width: 20rem;">
       <div class="card-block">
         <h4 class="card-title"><%= @dish.name %></h4>
+        <h4 class="card-title"><%= @dish.portions %></h4>
         <p class="card-text"><%= @dish.description %></p>
         <a href="<%= dish_path(@dish) %>" class="btn btn-primary">See details</a>
       </div>

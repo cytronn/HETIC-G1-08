@@ -12,6 +12,14 @@ class OrdersController < ApplicationController
   def pay
     @dish = Dish.find(params[:dish_id])
     @order = Order.find(params[:order_id])
+    ## here the expire_at is correct but appears at nil when orders are called from the rails console?
+    puts @order.expire_at
+    puts @dish.portions
+
+    ### this line has to be linked to Stripe's payment validation
+    # @order.paid!
+    # puts @order.status
+    ###
     @amount = 500
     if request.post?
       customer = Stripe::Customer.create(
@@ -35,8 +43,14 @@ class OrdersController < ApplicationController
   def create
     @dish = Dish.find(params[:dish_id])
     @order = Order.new(order_params)
-    if @order.save
-      redirect_to dish_order_pay_url(@dish, @order)
+
+    if @order.quantity <= @dish.portions
+      @dish.portions -= @order.quantity
+      if @order.save && @dish.save
+        redirect_to dish_order_pay_url(@dish, @order)
+      else
+        render :new
+      end
     else
       render :new
     end
