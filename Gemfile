@@ -44,7 +44,6 @@ gem 'bootstrap_form'
 # gem 'capistrano-rails', group: :development
 
 #Authentification
-
 gem 'devise'
 
 group :production do

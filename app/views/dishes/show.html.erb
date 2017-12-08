@@ -1,6 +1,5 @@
 
 <%= link_to '↩ Dishes list', dishes_path %>
-
 <p>
   <strong>Dish name:</strong>
   <%= @dish.name %>
@@ -25,3 +24,10 @@
   <strong>Remaining portions:</strong>
   <%= @dish.portions %>
 </p>
+
+<p>
+    <strong>Tags:</strong>
+    <%= raw tag_links(@dish.all_tags) %>
+  </p>
+
+

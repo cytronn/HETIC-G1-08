@@ -1,7 +1,11 @@
 class DishesController < ApplicationController
   
   def index
-    @dishes = Dish.all
+    if params[:tag]
+      @dishes = Dish.tagged_with(params[:tag])
+    else
+      @dishes = Dish.all
+    end
   end
   
   def show
@@ -47,6 +51,7 @@ class DishesController < ApplicationController
 
   private
     def dish_params
-      params.require(:dish).permit(:name, :description, :ingredients, :portions, :delivery_at)
+      params.require(:dish).permit(:name, :description, :ingredients, :portions, :delivery_at, :all_tags =>[])
     end
+
 end

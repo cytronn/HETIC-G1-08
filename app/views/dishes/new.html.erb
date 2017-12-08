@@ -42,6 +42,13 @@
 </p>
 
 <p>
+  <%= form.check_box :all_tags, { :multiple => true }, 'veggie', nil %>
+  <%= form.check_box :all_tags, { :multiple => true }, 'gluten-free', nil %>  
+  <%= form.check_box :all_tags, { :multiple => true }, 'indian', nil %>  
+  <%= form.check_box :all_tags, { :multiple => true }, 'cheesy', nil %>  
+</p>
+
+<p>
   <%= form.submit %>
 </p>
 <% end %>

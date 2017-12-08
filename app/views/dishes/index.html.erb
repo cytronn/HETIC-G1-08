@@ -4,6 +4,7 @@
 <%= link_to 'Add a dish', new_dish_path %>
 <table>
  <tr>
+   <th>ID</th>
    <th>Name</th>
    <th>Description</th>
    <th>Ingredients</th>
@@ -13,6 +14,7 @@
 
  <% @dishes.each do |dish| %>
    <tr>
+     <td><%= dish.id %></td>
      <td><%= dish.name %></td>
      <td><%= dish.description %></td>
      <td><%= dish.ingredients %></td>
