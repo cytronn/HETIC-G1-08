@@ -1,4 +1,3 @@
 class Tag < ApplicationRecord
-    has_many :taggings
-    has_many :dishes, through: :taggings
+  has_and_belongs_to_many :dishes
 end
