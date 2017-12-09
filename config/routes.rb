@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   #search by tags routes 
-  get 'tags/*tag', to: 'dishes#index', as: "tag"
+  get 'dishes/t=:tag', to: 'dishes#index', as: "tag"
     
   # charges
   resources :charges, only: [:new, :create]
