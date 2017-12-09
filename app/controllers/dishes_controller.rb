@@ -1,9 +1,12 @@
 class DishesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @dishes = Dish.all
   end
   
   def show
+    @userId = current_user.id
     @dish = Dish.find(params[:id])
   end
   

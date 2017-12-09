@@ -7,7 +7,8 @@
     <%= f.text_field :last_name %>        
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>   
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: "btn btn-success" %>
   <% end %>
 <% end %>
+<hr>
 <%= render "devise/shared/links" %>
