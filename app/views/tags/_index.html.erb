@@ -1,0 +1,3 @@
+<% Tag.all.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag.name), :class => "btn btn-outline-warning" %>
+<% end %>
