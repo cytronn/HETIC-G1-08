@@ -4,6 +4,10 @@
 
 bundle install
 
+rake db:setup
+
+rake db:seed
+
 rake db:migrate
 
 rails s

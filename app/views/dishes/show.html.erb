@@ -13,7 +13,7 @@
     <% end %>
   </div>
   <hr>
-  <img class="img-fluid" style="height: 350px; width: 100%; display: block; background-color: grey;" data-holder-rendered="true">
+  <img class="img-fluid" style="height: 700px; width: 100%; display: block; background-color: grey; background: url(<%= @dish.cover.url %>) no-repeat center fixed; background-size: cover" data-holder-rendered="true">
   <dl class="row mt-5">
     <dt class="col-sm-3">Cooker</dt>
     <dd class="col-sm-9"><%= @dish.user.first_name %><%= @dish.user.last_name %></dd>
@@ -25,6 +25,7 @@
     <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
     <dt class="col-sm-3">Remaining portions</dt>
     <dd class="col-sm-9"><%= @dish.portions %></dd>
+    <dd class="col-sm-9"><%= raw tag_links(@dish.all_tags) %></dd>
   </dl>
   <hr>
 </div>

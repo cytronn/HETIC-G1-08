@@ -21,6 +21,15 @@
           </ul>
         </div>
       <% end %>
+      <p>
+        <%= f.label :cover %><br>
+          <% unless @dish.cover.url.nil? %>
+            <img class="img-fluid" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
+            <%= f.file_field :cover %>
+          <% else %>
+            <%= f.file_field :cover %>
+          <% end %>
+      </p>
       <%= f.text_field :name, id: :name %>
       <%= f.text_area :description, id: :description %>
       <%= f.text_area :ingredients, id: :ingredients %>

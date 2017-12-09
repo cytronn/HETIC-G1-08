@@ -48,6 +48,9 @@ gem 'bootstrap_form'
 #Authentification
 gem 'devise'
 
+#Images
+gem 'carrierwave', '~> 1.0'
+
 group :production do
   # Use postgresql as the database for Active Record
   gem 'pg', '~> 0.18'
