@@ -1,0 +1,12 @@
+<% Tag.all.each do |tag| %>
+<%
+    puts 'AGAGAGGA'
+    puts params['tag'].split(',')
+    if params['tag'].split(',').include?(tag.name)
+        my_class = 'btn-success'
+    else 
+        my_class = 'btn-outline-primary'    
+    end
+%>
+    <%= link_to tag.name, tag_path(:tag => go_to_tag(tag.name)), :class => "btn "+ my_class %>
+<% end %>

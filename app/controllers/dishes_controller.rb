@@ -6,6 +6,7 @@ class DishesController < ApplicationController
       @dishes = Dish.tagged_with(params[:tag])
     else
       @dishes = Dish.all
+      @tags = Tag.all
     end
   end
   
