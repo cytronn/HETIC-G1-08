@@ -16,9 +16,6 @@
   <%= f.text_area :ingredients, id: :dish_ingredients %>
   <%= f.number_field :portions, id: :dish_portions %>
   <%= f.date_select :delivery_at, id: :dish_delivery_at %>
-  <%= f.check_box :all_tags,{ :multiple => true, :label => 'veggie'}, 'veggie', nil %>  
-  <%= f.check_box :all_tags,{ :multiple => true, :label => 'gluten-free' } ,'gluten-free', nil %>
-  <%= f.check_box :all_tags,{ :multiple => true, :label => 'indian' }, 'indian', nil %>
-  <%= f.check_box :all_tags,{ :multiple => true, :label => 'cheesy' }, 'cheesy', nil %>  
-  <%= f.submit %>  
+  <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
+  <%= f.submit 'Save', class: 'btn btn-success' %>
 <% end %>

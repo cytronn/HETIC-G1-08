@@ -25,3 +25,5 @@ HETIC-G1-08_test
 
 # Ignore public
 /public/uploads/*
+
+\.DS_Store

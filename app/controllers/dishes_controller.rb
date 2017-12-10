@@ -1,4 +1,6 @@
 class DishesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     if params[:tag]
       @dishes = Dish.tagged_with(params[:tag])
@@ -14,6 +16,7 @@ class DishesController < ApplicationController
   
   def new
     @dish = Dish.new
+    @tags = Tag.all
   end
 
   def edit
@@ -50,7 +53,7 @@ class DishesController < ApplicationController
 
   private
     def dish_params
-      params.require(:dish).permit(:name, :description, :ingredients, :portions, :delivery_at, :cover, :all_tags =>[])
+      params.require(:dish).permit(:name, :description, :ingredients, :portions, :delivery_at, :cover, :tag_ids => [])
     end
 
 end
