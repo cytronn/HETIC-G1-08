@@ -1,28 +1,35 @@
-<p id="notice"><%= notice %></p>
-<div class="d-flex justify-content-start align-items-center mb-3">
-  <h1>Orders</h1>
-</div>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">User</th>
-      <th scope="col">Note</th>
-      <th scope="col">Quantity</th>
-      <th scope="col" colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td scope="row"><%= order.name %></td>
-        <td><%= order.user_id %></td>
-        <td><%= order.note %></td>
-        <td><%= order.quantity %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Orders</li>
+</ol>
+<div class="mt-4">
+  <h1>My orders</h1>
+  <div class="mt-4">
+    <% if (@orders.length > 0) %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Plat</th>
+            <th scope="col">Note</th>
+            <th scope="col">Quantity</th>
+            <th scope="col" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td scope="row"><%= order.name %></td>
+              <td><a href="<%= dish_url(order.dish) %>"><%= order.dish.name %></a></td>
+              <td><%= order.note %></td>
+              <td><%= order.quantity %></td>
+              <td><%= link_to 'Show', order %></td>
+              <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="alert alert-warning" role="alert">No order found !</div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

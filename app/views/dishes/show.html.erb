@@ -6,33 +6,69 @@
   <h1><%= @dish.name %></h1>
   <hr>
   <div class="d-flex justify-content-end">
-    <%= link_to 'Order now !', new_dish_order_url(@dish.id), class: 'btn btn-primary mr-auto p-2' %>
+    <%= link_to 'Order now !', new_dish_order_url(@dish.slug), class: 'btn btn-primary mr-auto p-2' %>
     <% if @dish.user.id == @userId %>
-      <%= link_to 'Edit', edit_dish_path(@dish), class: 'btn btn-primary p-2' %>
-      <%= link_to 'Destroy', @dish, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger ml-2 p-2' %>
+      <%= link_to 'Edit', edit_dish_path(slug: @dish.slug), class: 'btn btn-warning p-2' %>
+      <%= link_to 'Destroy', @dish.slug, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger ml-2 p-2' %>
     <% end %>
   </div>
   <hr>
   <img class="img-fluid" style="height: 700px; width: 100%; display: block; background-color: grey; background: url(<%= @dish.cover.url %>) no-repeat center fixed; background-size: cover" data-holder-rendered="true">
-  <dl class="row mt-5">
-    <dt class="col-sm-3">Cooker</dt>
-    <dd class="col-sm-9"><%= @dish.user.first_name %><%= @dish.user.last_name %></dd>
-    <dt class="col-sm-3">Description</dt>
-    <dd class="col-sm-9"><%= @dish.description %></dd>
-    <dt class="col-sm-3">Ingredients</dt>
-    <dd class="col-sm-9"><%= @dish.ingredients %></dd>
-    <dt class="col-sm-3">Delivery at</dt>
-    <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
-    <dt class="col-sm-3">Remaining portions</dt>
-    <dd class="col-sm-9"><%= @dish.portions %></dd>
-    <dt class="col-sm-3">Tags</dt>
-    <dd class="col-sm-9">
-      <ul>
-        <% @dish.tags.each do |tag| %>
-          <li><%= tag.name %></li>
+  <div class="card mt-4">
+    <h4 class="card-header">Details</h4>
+    <div class="card-body">
+      <dt class="col-sm-3">Cooker</dt>
+      <dd class="col-sm-9"><%= @dish.user.first_name %> <%= @dish.user.last_name %></dd>
+      <dt class="col-sm-3">Description</dt>
+      <dd class="col-sm-9"><%= @dish.description %></dd>
+      <dt class="col-sm-3">Ingredients</dt>
+      <dd class="col-sm-9"><%= @dish.ingredients %></dd>
+      <dt class="col-sm-3">Delivery at</dt>
+      <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
+      <dt class="col-sm-3">Remaining portions</dt>
+      <dd class="col-sm-9"><%= @dish.portions %></dd>
+      <dt class="col-sm-3">Tags</dt>
+      <dd class="col-sm-9">
+        <% if (@dish.tags.length > 0) %>
+          <ul>
+            <% @dish.tags.each do |tag| %>
+              <li><%= tag.name %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          No tag linked
         <% end %>
-      </ul>
-    </dd>
-  </dl>
-  <hr>
+      </dd>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <h4 class="card-header">Orders</h4>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">User</th>
+            <th scope="col">Note</th>
+            <th scope="col">Quantity</th>
+            <th scope="col" colspan="3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @dish.orders.each do |order| %>
+            <tr>
+              <td scope="row"><%= order.name %></td>
+              <td><%= order.user_id %></td>
+              <td><%= order.note %></td>
+              <td><%= order.quantity %></td>
+              <td><%= link_to 'Show', order %></td>
+              <td><%= link_to 'Edit', edit_order_path(order) %></td>
+              <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

@@ -7,13 +7,30 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find_by!(slug: params[:slug])
   end
 
+  def new
+    @dish = Dish.find_by!(slug: params[:dish_slug])
+    @order = Order.new
+  end
+
+  def create
+    @dish = Dish.find_by!(slug: params[:dish_slug])
+    @order = Order.new(order_params.merge(status: 'pending'))
+    if @order.save
+      redirect_to dish_order_pay_url(@dish, @order)
+    else
+      render :new
+    end
+  end
+  
   def pay
-    @dish = Dish.find(params[:dish_id])
-    @order = Order.find(params[:order_id])
+    @dish = Dish.find_by!(slug: params[:dish_slug])
+    @order = Order.find_by!(slug: params[:order_slug])
     @amount = 500
     if request.post?
+      @order.update(status: 'paid')
       customer = Stripe::Customer.create(
         :email => params[:stripeEmail],
         :source  => params[:stripeToken]
@@ -21,24 +38,10 @@ class OrdersController < ApplicationController
       charge = Stripe::Charge.create(
         :customer    => customer.id,
         :amount      => @amount,
-        :description => 'Yuumm',
+        :description => @dish.name,
         :currency    => 'eur'
       )
-    end
-  end
-
-  def new
-    @dish = Dish.find(params[:dish_id])
-    @order = Order.new
-  end
-
-  def create
-    @dish = Dish.find(params[:dish_id])
-    @order = Order.new(order_params)
-    if @order.save
-      redirect_to dish_order_pay_url(@dish, @order)
-    else
-      render :new
+      redirect_to @order
     end
   end
 
@@ -49,7 +52,7 @@ class OrdersController < ApplicationController
 
   private
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order.find_by!(slug: params[:slug])
     end
     def order_params
       params
@@ -62,5 +65,4 @@ class OrdersController < ApplicationController
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_charge_path, amount: @amount
-
 end

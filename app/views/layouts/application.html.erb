@@ -40,10 +40,10 @@
       </div>
     </nav>
     <div class="container mt-3">
-      <% if @current_user %>  
-        <!--<div class="alert alert-info" role="alert">
-          <strong>Heads up!</strong> <%= @current_user.first_name %> <%= @current_user.last_name %>
-        </div>-->
+      <% if notice %>
+        <div class="alert alert-info" role="alert">
+          <%= notice %>
+        </div>
       <% end %>
       <div class="content mt-2">
         <%= yield %>

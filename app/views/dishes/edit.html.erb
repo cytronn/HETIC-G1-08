@@ -1,12 +1,12 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
-  <li class="breadcrumb-item"><a href="<%= dish_path(@dish) %>"><%= @dish.name %></a></li>
+  <li class="breadcrumb-item"><a href="<%= dish_path(slug: @dish.slug) %>"><%= @dish.name %></a></li>
   <li class="breadcrumb-item active">Edit</li>
 </ol>
 <div class="mt-4">
   <%= link_to 'Back', dishes_path %>
   <div class="mt-4">
-    <h1>Edit <%= @dish.name %></h1>
+    <h1>Edit « <%= @dish.name %> »</h1>
     <%= bootstrap_form_for(@dish) do |f| %>
       <% if @dish.errors.any? %>
         <div id="error_explanation">
@@ -21,20 +21,18 @@
           </ul>
         </div>
       <% end %>
-      <p>
-        <%= f.label :cover %><br>
-          <% unless @dish.cover.url.nil? %>
-            <img class="img-fluid" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
-            <%= f.file_field :cover %>
-          <% else %>
-            <%= f.file_field :cover %>
-          <% end %>
-      </p>
-      <%= f.text_field :name, id: :name %>
-      <%= f.text_area :description, id: :description %>
-      <%= f.text_area :ingredients, id: :ingredients %>
-      <%= f.number_field :portions, id: :portions %>
-      <%= f.date_select :delivery_at, id: :delivery_at %>
+      <% unless @dish.cover.url.nil? %>
+        <img class="img-fluid" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
+        <%= f.file_field :cover %>
+      <% else %>
+        <%= f.file_field :cover %>
+      <% end %>
+      <%= f.text_field :name %>
+      <%= f.text_area :description %>
+      <%= f.text_area :ingredients %>
+      <%= f.number_field :portions %>
+      <%= f.date_select :delivery_at %>
+      <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
       <%= f.submit 'Save', class: 'btn btn-success' %>
     <% end %>
   </div>

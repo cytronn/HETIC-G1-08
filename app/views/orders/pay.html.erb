@@ -5,24 +5,34 @@
 </ol>
 <div class="mt-4">
   <h1>New Order</h1>
-  <div class="d-flex flex-row mt-4">
-    <div class="card p-4" style="width: 20rem;">
-      <div class="card-block">
-        <h4 class="card-title"><%= @dish.name %></h4>
-        <p class="card-text"><%= @dish.description %></p>
-        <a href="<%= dish_path(@dish) %>" class="btn btn-primary">See details</a>
-        <hr>
-        <dl class="row mt-3">
-          <dt class="col-sm-6">Cooker ID</dt>
-          <dd class="col-sm-3"><%= @dish.user_id %></dd>
-        </dl>
+  <%= form_tag dish_order_pay_path do %> 
+    <div class="d-flex flex-row mt-4">
+      <div class="card p-4" style="width: 20rem;">
+        <div class="card-block">
+          <h4 class="card-title"><%= @dish.name %></h4>
+          <p class="card-text"><%= @dish.description %></p>
+          <a href="<%= dish_path(@dish) %>" class="btn btn-primary mb-2">See details</a>
+          <hr>
+          <dl class="row mt-4">
+            <dt class="col-sm-5">Cooker</dt>
+            <dd class="col-sm-6"><%= @dish.user.first_name %> <%= @dish.user.last_name %></dd>
+          </dl>
+          <dl class="row mt-1">
+            <dt class="col-sm-5">Quantity</dt>
+            <dd class="col-sm-6"><%= @order.quantity %></dd>
+          </dl>
+          <dl class="row mt-1">
+            <dt class="col-sm-5">Note</dt>
+            <dd class="col-sm-6"><%= @order.note %></dd>
+          </dl>
+        </div>
       </div>
-    </div>
-    <div class="ml-5">
+      <div class="ml-5">
       <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="A month's subscription"
-          data-amount="<%= @amount %>%"
-          data-locale="auto"></script>
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-description="A month's subscription"
+              data-amount="<%= @amount %>%"
+              data-locale="auto"></script>
     </div>
+  <% end %>
 </div>

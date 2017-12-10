@@ -10,8 +10,13 @@
       <div class="card-block">
         <h4 class="card-title"><%= @dish.name %></h4>
         <p class="card-text"><%= @dish.description %></p>
-        <a href="<%= dish_path(@dish) %>" class="btn btn-primary">See details</a>
+        <a href="<%= dish_path(@dish) %>" class="btn btn-primary mb-2">See details</a>
       </div>
+      <hr>
+      <dl class="row mt-4">
+        <dt class="col-sm-5">Cooker</dt>
+        <dd class="col-sm-6"><%= @dish.user.first_name %> <%= @dish.user.last_name %></dd>
+      </dl>
     </div>
     <div class="ml-5">
     <%= bootstrap_form_for([@dish, @order]) do |f| %>
