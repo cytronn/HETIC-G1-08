@@ -13,7 +13,7 @@ class Dish < ApplicationRecord
   
   # TODO: Implement date validation
   # validates :delivery_at, presence: true
-
+  
   def self.tagged_with(names)
     tags_id = [];
     params = names.split(',');
@@ -33,7 +33,6 @@ class Dish < ApplicationRecord
       find_by_sql("SELECT dishes.id, dishes.name, dishes.description, dishes.portions, dishes.ingredients, dishes.delivery_at
       FROM dishes")
     end
-
   end
 
 end
