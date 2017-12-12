@@ -30,4 +30,7 @@ class Dish < ApplicationRecord
                 HAVING COUNT(DISTINCT dishes_tags.tag_id) =  #{count_id}" )
   end
 
+  def self.in_organization(id)
+    find_by_sql("SELECT * FROM dishes JOIN users ON users.organization_id = #{id} WHERE dishes.user_id = users.id")
+  end
 end

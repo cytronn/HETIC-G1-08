@@ -2,10 +2,11 @@ class DishesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    user = User.find(current_user.id)
     if params[:tag]
       @dishes = Dish.tagged_with(params[:tag])
     else
-      @dishes = Dish.all
+      @dishes = Dish.in_organization(user.organization_id)
     end
   end
   
