@@ -13,24 +13,32 @@ class Dish < ApplicationRecord
   
   # TODO: Implement date validation
   # validates :delivery_at, presence: true
-
-  def self.tagged_with(names)
+  
+  def self.tagged_with(names, id)
     tags_id = [];
     params = names.split(',');
-    params.map do |param|
-      curr_tag = Tag.find_by!(name: param)
-      tags_id.push(curr_tag.id)
+    if params[0] != 'all'
+      params.map do |param|
+        curr_tag = Tag.find_by!(name: param)
+        tags_id.push(curr_tag.id)
+      end
+      count_id = tags_id.count
+      find_by_sql("SELECT dishes.id, dishes.name, dishes.description, dishes.portions, dishes.ingredients, dishes.delivery_at
+                  FROM dishes
+                  JOIN users 
+                  ON users.organization_id = #{id}
+                  JOIN dishes_tags 
+                  ON dishes.id = dishes_tags.dish_id AND dishes_tags.tag_id IN (#{tags_id.join(",")})
+                  GROUP BY dishes.id
+                  HAVING COUNT(DISTINCT dishes_tags.tag_id) =  #{count_id}")
+    else
+      find_by_sql("SELECT dishes.id, dishes.name, dishes.description, dishes.portions, dishes.ingredients, dishes.delivery_at
+      FROM dishes JOIN users ON users.organization_id = #{id} WHERE dishes.user_id = users.id")
     end
-    count_id = tags_id.count
-    find_by_sql("SELECT dishes.id, dishes.name, dishes.description, dishes.portions, dishes.ingredients, dishes.delivery_at
-                FROM dishes
-                JOIN dishes_tags 
-                ON dishes.id = dishes_tags.dish_id AND dishes_tags.tag_id IN (#{tags_id.join(",")})
-                GROUP BY dishes.id
-                HAVING COUNT(DISTINCT dishes_tags.tag_id) =  #{count_id}" )
   end
 
   def self.in_organization(id)
-    find_by_sql("SELECT * FROM dishes JOIN users ON users.organization_id = #{id} WHERE dishes.user_id = users.id")
+    find_by_sql("SELECT * FROM dishes JOIN users ON users.organization_id = #{id}")
   end
 end
+

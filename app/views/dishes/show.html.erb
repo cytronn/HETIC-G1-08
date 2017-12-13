@@ -22,12 +22,12 @@
     <dt class="col-sm-3">Delivery at</dt>
     <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
     <dt class="col-sm-3">Remaining portions</dt>
-    <dd class="col-sm-9"><%= @dish.portions %></dd>
+    <dd class="col-sm-9"><%= @dish.portions %></dd
     <dt class="col-sm-3">Tags</dt>
     <dd class="col-sm-9">
       <ul>
         <% @dish.tags.each do |tag| %>
-          <li><%= tag.name %></li>
+          <%= link_to tag.name, tag_path(tag.name), :class => "btn btn-outline-warning" %>
         <% end %>
       </ul>
     </dd>
