@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209152405) do
+ActiveRecord::Schema.define(version: 20171213220200) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -46,14 +46,22 @@ ActiveRecord::Schema.define(version: 20171209152405) do
   create_table "dishes", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "portions"
+    t.integer "portions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ingredients"
     t.date "delivery_at"
     t.integer "user_id"
     t.string "cover"
+    t.string "slug"
+    t.integer "price"
+    t.index ["slug"], name: "index_dishes_on_slug", unique: true
     t.index ["user_id"], name: "index_dishes_on_user_id"
+  end
+
+  create_table "dishes_orders", id: false, force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "dish_id", null: false
   end
 
   create_table "dishes_tags", id: false, force: :cascade do |t|
@@ -69,7 +77,18 @@ ActiveRecord::Schema.define(version: 20171209152405) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "dish_id"
+    t.integer "status", default: 0
+    t.datetime "expire_at"
+    t.string "slug"
+    t.integer "amount"
+    t.string "charge_id"
     t.index ["dish_id"], name: "index_orders_on_dish_id"
+    t.index ["slug"], name: "index_orders_on_slug", unique: true
+  end
+
+  create_table "orders_users", id: false, force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "tags", force: :cascade do |t|
