@@ -82,4 +82,25 @@
       <% end %>
     </div>
   </div>
+  <img class="img-fluid" style="height: 700px; width: 100%; display: block; background-color: grey; background: url(<%= @dish.cover.url %>) no-repeat center fixed; background-size: cover" data-holder-rendered="true">
+  <dl class="row mt-5">
+    <dt class="col-sm-3">Cooker ID</dt>
+    <dd class="col-sm-9"><%= @dish.user_id %></dd>
+    <dt class="col-sm-3">Description</dt>
+    <dd class="col-sm-9"><%= @dish.description %></dd>
+    <dt class="col-sm-3">Ingredients</dt>
+    <dd class="col-sm-9"><%= @dish.ingredients %></dd>
+    <dt class="col-sm-3">Delivery at</dt>
+    <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
+    <dt class="col-sm-3">Remaining portions</dt>
+    <dd class="col-sm-9"><%= @dish.portions %></dd
+    <dt class="col-sm-3">Tags</dt>
+    <dd class="col-sm-9">
+      <ul>
+        <% @dish.tags.each do |tag| %>
+          <%= link_to tag.name, tag_path(tag.name), :class => "btn btn-outline-warning" %>
+        <% end %>
+      </ul>
+    </dd>
+  </dl>
 </div>
