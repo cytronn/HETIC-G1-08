@@ -2,11 +2,13 @@ class DishesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+
+    @tags = Tag.all
+    
     if params[:tag]
-      @dishes = Dish.tagged_with(params[:tag])
+      @dishes = Dish.filter(params[tags = :tag])
     else
       @dishes = Dish.all
-      @tags = Tag.all
     end
   end
   
