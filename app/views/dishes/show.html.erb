@@ -27,6 +27,8 @@
       <dd class="col-sm-9"><%= @dish.delivery_at %></dd>
       <dt class="col-sm-3">Remaining portions</dt>
       <dd class="col-sm-9"><%= @dish.portions %></dd>
+      <dt class="col-sm-3">Price</dt>
+      <dd class="col-sm-9"><%= '%.2f' % (@dish.price / 100.to_f) %>€</dd>
       <dt class="col-sm-3">Tags</dt>
       <dd class="col-sm-9">
         <% if (@dish.tags.length > 0) %>
@@ -45,30 +47,39 @@
   <div class="card mt-4">
     <h4 class="card-header">Orders</h4>
     <div class="card-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">User</th>
-            <th scope="col">Note</th>
-            <th scope="col">Quantity</th>
-            <th scope="col" colspan="3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @dish.orders.each do |order| %>
+      <% if (@dish.orders.length > 0) %>
+        <table class="table">
+          <thead>
             <tr>
-              <td scope="row"><%= order.name %></td>
-              <td><%= order.user_id %></td>
-              <td><%= order.note %></td>
-              <td><%= order.quantity %></td>
-              <td><%= link_to 'Show', order %></td>
-              <td><%= link_to 'Edit', edit_order_path(order) %></td>
-              <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <th scope="col">N°</th>
+              <th scope="col">Identifier</th>
+              <th scope="col">User</th>
+              <th scope="col">Note</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Amount</th>
+              <th scope="col" colspan="2">Actions</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody> 
+            <% @dish.orders.each do |order| %>
+              <tr>
+                <td scope="row"><%= order.name %></td>
+                <td><%= order.slug %></td>
+                <td><%= order.user.first_name %> <%= order.user.last_name %></td>
+                <td><%= order.note %></td>
+                <td><%= order.quantity %></td>
+                <td><%= '%.2f' % (order.amount / 100.to_f) %>€</td>
+                <td>
+                  <%= link_to 'Accepter', @dish.slug, method: :delete, class: 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Refuser', @dish.slug, method: :delete, data: { confirm: 'Refuser' }, class: 'btn btn-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        No order found !
+      <% end %>
     </div>
   </div>
 </div>

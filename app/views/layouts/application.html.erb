@@ -7,47 +7,54 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="<%= root_path %>">Yuumm</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item <%= is_current_menu_item?(root_path) ? 'active' : '' %>">
-              <a class="nav-link" href="<%= root_path %>">Home</a>
-            </li>
-            <li class="nav-item <%= is_current_menu_item?(orders_path) ? 'active' : '' %>">
-              <a class="nav-link" href="<%= orders_path %>">Orders</a>
-            </li>
-            <li class="nav-item <%= is_current_menu_item?(dishes_path) ? 'active' : '' %>">
-              <a class="nav-link" href="<%= dishes_path %>">Dishes</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-          <% if @current_user %>  
-            <%= link_to 'Update my account', profile_edit_url, class: 'btn btn-secondary ml-2'  %>
-            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger ml-2' %>
-          <% else %>
-            <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-primary ml-2' %>
-            <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary ml-2' %> 
-          <% end %>
+    <div class="document">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="<%= root_path %>">Yuumm</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item <%= is_current_menu_item?(root_path) ? 'active' : '' %>">
+                <a class="nav-link" href="<%= root_path %>">Home</a>
+              </li>
+              <li class="nav-item <%= is_current_menu_item?(orders_path) ? 'active' : '' %>">
+                <a class="nav-link" href="<%= orders_path %>">Orders</a>
+              </li>
+              <li class="nav-item <%= is_current_menu_item?(dishes_path) ? 'active' : '' %>">
+                <a class="nav-link" href="<%= dishes_path %>">Dishes</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <% if @current_user %>  
+              <%= link_to 'Update my account', profile_edit_url, class: 'btn btn-secondary ml-2'  %>
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger ml-2' %>
+            <% else %>
+              <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-primary ml-2' %>
+              <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary ml-2' %> 
+            <% end %>
+          </div>
         </div>
-      </div>
-    </nav>
-    <div class="container mt-3">
-      <% if notice %>
-        <div class="alert alert-info" role="alert">
-          <%= notice %>
+      </nav>
+      <div class="container mt-3">
+        <% if notice %>
+          <div class="alert alert-info" role="alert">
+            <%= notice %>
+          </div>
+        <% end %>
+        <div class="content mt-2">
+          <%= yield %>
         </div>
-      <% end %>
-      <div class="content mt-2">
-        <%= yield %>
       </div>
     </div>
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Yuumm. All rights reserved</span>
+      </div>
+    </footer>
   </body>
 </html>

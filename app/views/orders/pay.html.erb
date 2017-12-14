@@ -1,7 +1,8 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
   <li class="breadcrumb-item"><a href="<%= dish_path(@dish) %>"><%= @dish.name %></a></li>
-  <li class="breadcrumb-item active">Order #1</li>
+  <li class="breadcrumb-item">Order</li>
+  <li class="breadcrumb-item active">Pay</li>
 </ol>
 <div class="mt-4">
   <h1>New Order</h1>
@@ -17,22 +18,36 @@
             <dt class="col-sm-5">Cooker</dt>
             <dd class="col-sm-6"><%= @dish.user.first_name %> <%= @dish.user.last_name %></dd>
           </dl>
-          <dl class="row mt-1">
+          <dl class="row">
+            <dt class="col-sm-5">Remaining portions</dt>
+            <dd class="col-sm-6"><%= @dish.portions %></dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-5">Unit price</dt>
+            <dd class="col-sm-6"><%= '%.2f' % (@dish.price / 100.to_f) %>€</dd>
+          </dl>
+          <dl class="row">
             <dt class="col-sm-5">Quantity</dt>
             <dd class="col-sm-6"><%= @order.quantity %></dd>
           </dl>
-          <dl class="row mt-1">
-            <dt class="col-sm-5">Note</dt>
-            <dd class="col-sm-6"><%= @order.note %></dd>
-          </dl>
+          <% if @order.note != '' %>
+            <dl class="row">
+              <dt class="col-sm-5">Note</dt>
+              <dd class="col-sm-6"><%= @order.note %></dd>
+            </dl>
+          <% end %>
         </div>
       </div>
       <div class="ml-5">
-      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-              data-description="A month's subscription"
-              data-amount="<%= @amount %>%"
-              data-locale="auto"></script>
+        <p style="max-width: 500px">
+          From credit cards and Apple Pay to 135 currencies, Stripe supports everything businesses need to accept payments on web and mobile.
+        </p>
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                data-description="A month's subscription"
+                data-amount="<%= @amount %>%"
+                data-locale="auto"></script>
+      </div>
     </div>
   <% end %>
 </div>

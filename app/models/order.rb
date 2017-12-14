@@ -2,6 +2,9 @@ class Order < ApplicationRecord
   before_create :set_slug
   before_create :set_name
 
+  belongs_to :dish
+  belongs_to :user
+
   def to_param
     slug
   end

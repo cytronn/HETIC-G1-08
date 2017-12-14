@@ -9,21 +9,27 @@
         <thead>
           <tr>
             <th scope="col">N°</th>
-            <th scope="col">Plat</th>
+            <th scope="col">Identifier</th>
+            <th scope="col">Dish</th>
             <th scope="col">Note</th>
             <th scope="col">Quantity</th>
-            <th scope="col" colspan="3"></th>
+            <th scope="col">Amount</th>
+            <th scope="col" colspan="2">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @orders.each do |order| %>
             <tr>
               <td scope="row"><%= order.name %></td>
-              <td><a href="<%= dish_url(order.dish) %>"><%= order.dish.name %></a></td>
+              <td><%= order.slug %></td>
+              <td><a href="<%= dish_path(slug: order.dish) %>"><%= order.dish.name %></a></td>
               <td><%= order.note %></td>
               <td><%= order.quantity %></td>
-              <td><%= link_to 'Show', order %></td>
-              <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= '%.2f' % (order.amount / 100.to_f) %>€</td>
+              <td>
+                <%= link_to 'Show', order, class: 'btn btn-primary btn-sm' %>
+                <%= link_to 'Cancel', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+              </td>
             </tr>
           <% end %>
         </tbody>

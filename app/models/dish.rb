@@ -3,6 +3,7 @@ class Dish < ApplicationRecord
 
   belongs_to :user
   has_many :orders
+  has_many :dishes
   has_and_belongs_to_many :tags
 
   mount_uploader :cover, DishImageUploader
