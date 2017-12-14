@@ -25,8 +25,6 @@ class Dish < ApplicationRecord
       count_id = tags_id.count
       find_by_sql("SELECT dishes.id, dishes.name, dishes.description, dishes.portions, dishes.ingredients, dishes.delivery_at
                   FROM dishes
-                  JOIN users 
-                  ON users.organization_id = #{id}
                   JOIN dishes_tags 
                   ON dishes.id = dishes_tags.dish_id AND dishes_tags.tag_id IN (#{tags_id.join(",")})
                   GROUP BY dishes.id
@@ -36,9 +34,10 @@ class Dish < ApplicationRecord
       FROM dishes JOIN users ON users.organization_id = #{id} WHERE dishes.user_id = users.id")
     end
   end
-
-  def self.in_organization(id)
-    find_by_sql("SELECT * FROM dishes JOIN users ON users.organization_id = #{id}")
-  end
+  
+  scope :in_organization, ->(id) {
+    joins(:user).where(users: { organization_id: id })
+  }
+  
 end
 
