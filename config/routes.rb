@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   as :user do 
     get 'profile/edit' => 'devise/registrations#edit'
   end
+  devise_scope :user do
+    post 'users/sign_up', to: 'devise/registrations#create'
+  end
 
   #search by tags routes 
   get 'dishes/t=:tag', to: 'dishes#index', as: "tag"
