@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   belongs_to :organization
   has_many :dishes
-  
+  has_many :orders
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 

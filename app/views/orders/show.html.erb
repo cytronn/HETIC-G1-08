@@ -1,17 +1,23 @@
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
-<p>
-  <strong>User:</strong>
-  <%= @order.user_id %>
-</p>
-<p>
-  <strong>Note:</strong>
-  <%= @order.note %>
-</p>
-<p>
-  <strong>Quantity:</strong>
-  <%= @order.quantity %>
-</p>
-<%= link_to 'Back', orders_path %>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Orders</li>
+</ol>
+<div class="mt-4">
+  <h1>My orders</h1>
+  <p>
+    <strong>Name:</strong>
+    <%= @order.name %>
+  </p>
+  <p>
+    <strong>User:</strong>
+    <%= @order.user_id %>
+  </p>
+  <p>
+    <strong>Note:</strong>
+    <%= @order.note %>
+  </p>
+  <p>
+    <strong>Quantity:</strong>
+    <%= @order.quantity %>
+  </p>
+  <%= link_to 'Back', orders_path %>
+</div>

@@ -17,20 +17,18 @@ Rails.application.routes.draw do
   #search by tags routes 
   get 'dishes/t=:tag', to: 'dishes#index', as: "tag"
     
-  # charges
-  resources :charges, only: [:new, :create]
+  resources :orders, only: [:index, :show, :edit, :update], param: :slug
 
   # orders
   resources :orders, only: [:index, :show, :edit, :update, :destroy]
   resources :organizations, only: [:new, :create]
   # dishes with orders
-  resources :dishes do
-    resources :orders, only: [:new, :create] do
-      get 'pay'
+  resources :dishes, param: :slug do
+    resources :orders, only: [:new, :create], param: :slug do
+      get 'pay' 
       post 'pay'
     end
   end
   
-  # root
   root 'welcome#index'
 end

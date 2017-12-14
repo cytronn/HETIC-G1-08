@@ -7,12 +7,34 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find_by!(slug: params[:slug])
   end
 
+  def new
+    @dish = Dish.find_by!(slug: params[:dish_slug])
+    @order = Order.new
+  end
+
+  def create
+    @dish = Dish.find_by!(slug: params[:dish_slug])
+    @order = Order.new(order_params.merge(status: 'pending').merge(dish_id: @dish.id))
+    if @order.quantity <= @dish.portions
+      @dish.portions -= @order.quantity
+      if @order.save && @dish.save
+        redirect_to dish_order_pay_url(@dish, @order)
+      else
+        render :new
+      end
+    end
+  end
+  
   def pay
-    @dish = Dish.find(params[:dish_id])
-    @order = Order.find(params[:order_id])
-    @amount = 500
+    @order = Order.find_by!(slug: params[:order_slug])
+    if @order.status == Order.statuses[:paid]
+      redirect_to @order
+    end
+    @dish = Dish.find_by!(slug: params[:dish_slug])
+    @amount = (@dish.price * @order.quantity * 100).to_i
     if request.post?
       customer = Stripe::Customer.create(
         :email => params[:stripeEmail],
@@ -21,24 +43,11 @@ class OrdersController < ApplicationController
       charge = Stripe::Charge.create(
         :customer    => customer.id,
         :amount      => @amount,
-        :description => 'Yuumm',
+        :description => @dish.name,
         :currency    => 'eur'
       )
-    end
-  end
-
-  def new
-    @dish = Dish.find(params[:dish_id])
-    @order = Order.new
-  end
-
-  def create
-    @dish = Dish.find(params[:dish_id])
-    @order = Order.new(order_params)
-    if @order.save
-      redirect_to dish_order_pay_url(@dish, @order)
-    else
-      render :new
+      @order.update(status: Order.statuses[:paid], charge_id: charge.id, amount: @amount)
+      redirect_to @order
     end
   end
 
@@ -49,18 +58,12 @@ class OrdersController < ApplicationController
 
   private
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order.find_by!(slug: params[:slug])
     end
     def order_params
       params
-      .require(:order)
-      .permit(:note, :quantity)
-      .merge(dish_id: params[:dish_id])
-      .merge(user_id: current_user.id)
+        .require(:order)
+        .permit(:note, :quantity, :amount, :status, :charge_id)
+        .merge(user_id: current_user.id)
     end
-
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_charge_path, amount: @amount
-
 end
