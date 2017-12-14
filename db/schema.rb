@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210114907) do
+ActiveRecord::Schema.define(version: 20171213221908) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -54,7 +54,13 @@ ActiveRecord::Schema.define(version: 20171210114907) do
     t.integer "user_id"
     t.string "cover"
     t.string "slug"
+    t.integer "price"
     t.index ["user_id"], name: "index_dishes_on_user_id"
+  end
+
+  create_table "dishes_orders", id: false, force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "dish_id", null: false
   end
 
   create_table "dishes_tags", id: false, force: :cascade do |t|
@@ -72,8 +78,15 @@ ActiveRecord::Schema.define(version: 20171210114907) do
     t.integer "dish_id"
     t.string "status"
     t.string "slug"
+    t.string "charge_id"
+    t.integer "amount"
     t.index ["dish_id"], name: "index_orders_on_dish_id"
     t.index ["slug"], name: "index_orders_on_slug", unique: true
+  end
+
+  create_table "orders_users", id: false, force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "tags", force: :cascade do |t|
