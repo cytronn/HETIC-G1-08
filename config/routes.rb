@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :users
+  # authentification
+  devise_for :users,
+  :controllers  => {
+    :registrations => 'custom_devise/registrations',
+  }
   resources :users
   as :user do 
     get 'profile/edit' => 'devise/registrations#edit'
@@ -15,6 +19,10 @@ Rails.application.routes.draw do
     
   resources :orders, only: [:index, :show, :edit, :update], param: :slug
 
+  # orders
+  resources :orders, only: [:index, :show, :edit, :update, :destroy]
+  resources :organizations, only: [:new, :create]
+  # dishes with orders
   resources :dishes, param: :slug do
     resources :orders, only: [:new, :create], param: :slug do
       get 'pay' 

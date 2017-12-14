@@ -42,11 +42,16 @@ class Dish < ApplicationRecord
                   JOIN dishes_tags 
                   ON dishes.id = dishes_tags.dish_id AND dishes_tags.tag_id IN (#{tags_id.join(",")})
                   GROUP BY dishes.id
-                  HAVING COUNT(DISTINCT dishes_tags.tag_id) =  #{count_id}" )
+                  HAVING COUNT(DISTINCT dishes_tags.tag_id) =  #{count_id}")
     else
       find_by_sql("SELECT dishes.id, dishes.name, dishes.description, dishes.portions, dishes.ingredients, dishes.delivery_at
-      FROM dishes")
+      FROM dishes JOIN users ON users.organization_id = #{id} WHERE dishes.user_id = users.id")
     end
   end
-
+  
+  scope :in_organization, ->(id) {
+    joins(:user).where(users: { organization_id: id })
+  }
+  
 end
+

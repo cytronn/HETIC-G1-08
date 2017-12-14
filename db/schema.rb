@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20171213220200) do
   create_table "dishes", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "portions"
+    t.string "portions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ingredients"
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 20171213220200) do
     t.integer "user_id", null: false
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -114,7 +121,9 @@ ActiveRecord::Schema.define(version: 20171213220200) do
     t.string "uid"
     t.string "first_name"
     t.string "last_name"
+    t.integer "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

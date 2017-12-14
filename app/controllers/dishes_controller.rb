@@ -3,11 +3,12 @@ class DishesController < ApplicationController
   before_action :get_tags
 
   def index
+    user = User.find(current_user.id)
+    @tags = Tag.all
     if params[:tag]
-      @dishes = Dish.tagged_with(params[:tag])
+      @dishes = Dish.tagged_with(params[:tag], user.organization_id)
     else
-      @dishes = Dish.all
-      @tags = Tag.all
+      @dishes = Dish.in_organization(user.organization_id)
     end
   end
   

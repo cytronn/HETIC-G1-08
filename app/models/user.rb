@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  belongs_to :organization
   has_many :dishes
   has_many :orders
 
@@ -10,4 +11,5 @@ class User < ApplicationRecord
   
   validates :first_name, presence: true, length: {maximum: 65}
   validates :last_name, presence: true, length: {maximum: 65}
+  validates :organization_id, presence: true
 end
