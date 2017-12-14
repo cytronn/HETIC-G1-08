@@ -1,60 +1,40 @@
-<h1>Modify your dish</h1>
-
-<%= form_with(model: @dish) do |form| %>
-
-  <% if @dish.errors.any? %>
-    <div id="error_explanation">
-        <h2>
-          Watch out! 😮
-          <%= pluralize(@dish.errors.count, "error") %> prevent us from accepting your dish:
-        </h2>
-      <ul>
-        <% @dish.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <p>
-    <%= form.label :cover %><br>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
+  <li class="breadcrumb-item"><a href="<%= dish_path(slug: @dish.slug) %>"><%= @dish.name %></a></li>
+  <li class="breadcrumb-item active">Edit</li>
+</ol>
+<div class="mt-4">
+  <%= link_to 'Back', dishes_path %>
+  <div class="mt-4">
+    <h1>Edit « <%= @dish.name %> »</h1>
+    <%= bootstrap_form_for(@dish) do |f| %>
+      <% if @dish.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+              Watch out! 😮
+              <%= pluralize(@dish.errors.count, "error") %> prevent us from accepting your dish:
+            </h2>
+          <ul>
+            <% @dish.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <% unless @dish.cover.url.nil? %>
         <img class="img-fluid" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
-        <%= form.file_field :cover %>
+        <%= f.file_field :cover %>
       <% else %>
-        <%= form.file_field :cover %>
+        <%= f.file_field :cover %>
       <% end %>
-  </p>
-
-  <p>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </p>
-
-  <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </p>
-
-  <p>
-    <%= form.label :ingredients %><br>
-    <%= form.text_area :ingredients %>
-  </p>
-
-  <p>
-    <%= form.label :portions %><br>
-    <%= form.number_field :portions %>
-  </p>
-
-  <p>
-    <%= form.label :delivery_at %><br>
-    <%= form.date_select :delivery_at %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
-
-<% end %>
-
-<%= link_to 'Back', dishes_path %>
+      <%= f.text_field :name %>
+      <%= f.text_area :description %>
+      <%= f.text_area :ingredients %>
+      <%= f.number_field :portions %>
+      <%= f.number_field :price %>
+      <%= f.date_select :delivery_at %>
+      <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
+      <%= f.submit 'Save', class: 'btn btn-success' %>
+    <% end %>
+  </div>
+</div>

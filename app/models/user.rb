@@ -1,5 +1,7 @@
 class User < ApplicationRecord
+  belongs_to :organization
   has_many :dishes
+  has_many :orders
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -9,4 +11,5 @@ class User < ApplicationRecord
   
   validates :first_name, presence: true, length: {maximum: 65}
   validates :last_name, presence: true, length: {maximum: 65}
+  validates :organization_id, presence: true
 end

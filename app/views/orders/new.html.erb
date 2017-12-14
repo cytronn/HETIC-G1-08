@@ -1,7 +1,8 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
   <li class="breadcrumb-item"><a href="<%= dish_path(@dish) %>"><%= @dish.name %></a></li>
-  <li class="breadcrumb-item active">Order #1</li>
+  <li class="breadcrumb-item">Order</li>
+  <li class="breadcrumb-item active">Create</li>
 </ol>
 <div class="mt-4">
   <h1>New Order</h1>
@@ -9,27 +10,42 @@
     <div class="card p-4" style="width: 20rem;">
       <div class="card-block">
         <h4 class="card-title"><%= @dish.name %></h4>
+        <h4 class="card-title"><%= @dish.portions %></h4>
         <p class="card-text"><%= @dish.description %></p>
-        <a href="<%= dish_path(@dish) %>" class="btn btn-primary">See details</a>
+        <a href="<%= dish_path(@dish) %>" class="btn btn-primary mb-2">See details</a>
       </div>
+      <hr>
+      <dl class="row mt-4">
+        <dt class="col-sm-5">Cooker</dt>
+        <dd class="col-sm-6"><%= @dish.user.first_name %> <%= @dish.user.last_name %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-5">Remaining portions</dt>
+        <dd class="col-sm-6"><%= @dish.portions %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-5">Unit price</dt>
+        <dd class="col-sm-6"><%= '%.2f' % @dish.price %>€</dd>
+      </dl>
     </div>
     <div class="ml-5">
-    <%= bootstrap_form_for([@dish, @order]) do |f| %>
-      <% if @order.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
-          <ul>
-          <% @order.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
+      <%= bootstrap_form_for([@dish, @order]) do |f| %>
+        <% if @order.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+            <ul>
+            <% @order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= f.text_area :note, id: :order_note %>
+        <%= f.number_field :quantity, id: :order_quantity, min: 0, max: @dish.portions %>
+        <div class="actions">
+          <%= f.submit 'Continue', class: 'btn btn-success' %>
         </div>
       <% end %>
-      <%= f.text_area :note, id: :order_note %>
-      <%= f.number_field :quantity, id: :order_quantity %>
-      <div class="actions">
-        <%= f.submit 'Continue', class: 'btn btn-success' %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
