@@ -1,4 +1,6 @@
 <H1>Sign up</H1>
+<!-- DEVISE ERROR ON FIRST SIGNUP ERROR -->
+<!-- @TODO: watch for error message  -->
 <%= form_for(resource, as: resource_name, url: users_sign_up_path) do |f| %>
   <%= devise_error_messages! %>
   <%= bootstrap_form_for(@user) do |f| %>
