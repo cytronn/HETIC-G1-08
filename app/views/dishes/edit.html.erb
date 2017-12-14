@@ -31,6 +31,7 @@
       <%= f.text_area :description %>
       <%= f.text_area :ingredients %>
       <%= f.number_field :portions %>
+      <%= f.number_field :price %>
       <%= f.date_select :delivery_at %>
       <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
       <%= f.submit 'Save', class: 'btn btn-success' %>

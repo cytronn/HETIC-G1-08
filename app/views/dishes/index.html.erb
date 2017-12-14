@@ -14,7 +14,11 @@
           <%= link_to 'See details', dish_path(slug: dish.slug), :class => "btn btn-primary" %>
         </div>
         <div class="card-footer">
-          <small class="text-muted"><%= dish.portions %> remaining dishes</small>
+          <% if dish.portions === 0 %>
+            <small class="text-muted">Sold out</small>
+          <%else%>
+            <small class="text-muted"><%= dish.portions %> remaining dishes</small>
+          <%end%>
         </div>
       </div>
     <% end %>

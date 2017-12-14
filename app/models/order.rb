@@ -1,9 +1,12 @@
 class Order < ApplicationRecord
   before_create :set_slug
   before_create :set_name
+  before_create :set_expiration_time
 
   belongs_to :dish
   belongs_to :user
+
+  enum statuses: [:pending, :paid, :aborted]
 
   def to_param
     slug
@@ -26,5 +29,15 @@ class Order < ApplicationRecord
     end
   end
 
-  validates :status, presence: true, :inclusion=> { :in => ['pending', 'paid'] }
+  scope :awaiting_payment, -> {
+    where(status: :pending)
+  }
+
+  scope :paid, -> {
+    where(status: :paid)
+  }
+
+  def set_expiration_time
+    self.expire_at = Time.now + 15.minutes
+  end
 end

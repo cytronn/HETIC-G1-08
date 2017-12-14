@@ -10,6 +10,7 @@
     <div class="card p-4" style="width: 20rem;">
       <div class="card-block">
         <h4 class="card-title"><%= @dish.name %></h4>
+        <h4 class="card-title"><%= @dish.portions %></h4>
         <p class="card-text"><%= @dish.description %></p>
         <a href="<%= dish_path(@dish) %>" class="btn btn-primary mb-2">See details</a>
       </div>
@@ -24,7 +25,7 @@
       </dl>
       <dl class="row">
         <dt class="col-sm-5">Unit price</dt>
-        <dd class="col-sm-6"><%= '%.2f' % (@dish.price / 100.to_f) %>€</dd>
+        <dd class="col-sm-6"><%= '%.2f' % @dish.price %>€</dd>
       </dl>
     </div>
     <div class="ml-5">

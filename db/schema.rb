@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213221908) do
+ActiveRecord::Schema.define(version: 20171213220200) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20171213221908) do
   create_table "dishes", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "portions"
+    t.integer "portions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ingredients"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20171213221908) do
     t.string "cover"
     t.string "slug"
     t.integer "price"
+    t.index ["slug"], name: "index_dishes_on_slug", unique: true
     t.index ["user_id"], name: "index_dishes_on_user_id"
   end
 
@@ -76,10 +77,11 @@ ActiveRecord::Schema.define(version: 20171213221908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "dish_id"
-    t.string "status"
+    t.integer "status", default: 0
+    t.datetime "expire_at"
     t.string "slug"
-    t.string "charge_id"
     t.integer "amount"
+    t.string "charge_id"
     t.index ["dish_id"], name: "index_orders_on_dish_id"
     t.index ["slug"], name: "index_orders_on_slug", unique: true
   end

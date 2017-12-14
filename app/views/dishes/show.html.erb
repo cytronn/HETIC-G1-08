@@ -28,7 +28,7 @@
       <dt class="col-sm-3">Remaining portions</dt>
       <dd class="col-sm-9"><%= @dish.portions %></dd>
       <dt class="col-sm-3">Price</dt>
-      <dd class="col-sm-9"><%= '%.2f' % (@dish.price / 100.to_f) %>€</dd>
+      <dd class="col-sm-9"><%= '%.2f' % @dish.price %>€</dd>
       <dt class="col-sm-3">Tags</dt>
       <dd class="col-sm-9">
         <% if (@dish.tags.length > 0) %>

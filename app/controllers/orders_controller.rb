@@ -18,34 +18,35 @@ class OrdersController < ApplicationController
   def create
     @dish = Dish.find_by!(slug: params[:dish_slug])
     @order = Order.new(order_params.merge(status: 'pending').merge(dish_id: @dish.id))
-    if @order.save
-      redirect_to dish_order_pay_url(@dish, @order)
-    else
-      render :new
+    if @order.quantity <= @dish.portions
+      @dish.portions -= @order.quantity
+      if @order.save && @dish.save
+        redirect_to dish_order_pay_url(@dish, @order)
+      else
+        render :new
+      end
     end
   end
   
   def pay
     @order = Order.find_by!(slug: params[:order_slug])
-    if @order.status == 'paid' 
+    if @order.status == Order.statuses[:paid]
       redirect_to @order
     end
     @dish = Dish.find_by!(slug: params[:dish_slug])
-    @amount = @dish.price * @order.quantity
+    @amount = (@dish.price * @order.quantity * 100).to_i
     if request.post?
       customer = Stripe::Customer.create(
         :email => params[:stripeEmail],
         :source  => params[:stripeToken]
-        )
+      )
       charge = Stripe::Charge.create(
         :customer    => customer.id,
         :amount      => @amount,
         :description => @dish.name,
         :currency    => 'eur'
       )
-      newDishPortions = @dish.portions.to_i - @order.quantity.to_i
-      @order.update(status: 'paid', charge_id: charge.id)
-      @dish.update(portions: newDishPortions)
+      @order.update(status: Order.statuses[:paid], charge_id: charge.id, amount: @amount)
       redirect_to @order
     end
   end
@@ -62,7 +63,7 @@ class OrdersController < ApplicationController
     def order_params
       params
         .require(:order)
-        .permit(:note, :quantity)
+        .permit(:note, :quantity, :amount, :status, :charge_id)
         .merge(user_id: current_user.id)
     end
 end
