@@ -5,8 +5,6 @@ class Dish < ApplicationRecord
   has_many :orders
   has_many :dishes
   has_and_belongs_to_many :tags
-
-  attr_accessor :description, :title
   mount_uploader :cover, DishImageUploader
 
   validates :name, presence: true, length: { minimum: 5 }

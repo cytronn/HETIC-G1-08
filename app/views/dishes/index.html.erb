@@ -7,7 +7,8 @@
   <%= link_to '+ Add a dish', new_dish_path %>
   <div class="card-deck mt-4">
     <% @dishes.each do |dish| %>
-      <div class="card" style="max-width: 33%">
+    <div class="col-sm-4">
+      <div class="card" style="margin-bottom: 3rem;">
         <img class="card-img-top" height="175px" src="<%= dish.cover.url %>" alt="<%= dish.ingredients %>" style="object-fit: cover;">
         <div class="card-body">
           <h4 class="card-title"><%= dish.name %></h4>
@@ -22,6 +23,7 @@
           <%end%>
         </div>
       </div>
+    </div>
     <% end %>
   </div>
 </div>
