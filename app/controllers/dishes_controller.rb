@@ -3,7 +3,7 @@ class DishesController < ApplicationController
   before_action :set_tags
 
   def index
-    @dishes = Dish.in_organization(current_organization.id).tagged_with(params[:tags]) 
+    @dishes = Dish.in_organization(current_organization.id).tagged_with(params[:tags]).delivery_day(params[:date])
   end
   
   def show

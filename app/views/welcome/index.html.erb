@@ -9,6 +9,7 @@
   <div class="yuumm-home-wrapper">
     <h1>Cook it up for the homies.</h1>
     <p>Yuumm is the principle of sharing homemade dishes in a community. We offer a platform to connect amateur cooks and savvy gourmets in a community, to offer your colleagues, friends, classmates, your best recipes.</p>
-    <a class="yuumm-arrow-link-light" href="<%= dishes_path %>">Discover the most popular dishes</a>
+    <%= link_to 'Discover the meals of the week', build_date_url('week'), :class => "yuumm-arrow-link-light" %>  
+    
   </div>
 </section>

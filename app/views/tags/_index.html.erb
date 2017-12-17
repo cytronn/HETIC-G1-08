@@ -1,0 +1,23 @@
+<div class="row">
+    <div class='col-sm-6'>
+        <% Tag.all.each do |tag| %>
+        <%
+            if params['tag'] 
+                if params['tag'].split(',').include?(tag.name)
+                    my_class = 'btn-success'
+                else
+                    my_class = 'btn-outline-success'
+                end
+            else
+                my_class = 'btn-outline-success'
+            end        
+        %>
+            <%= link_to tag.name, filter_path(:tag => go_to_tag(tag.name)), :class => "btn "+ my_class %>
+        <% end %>
+    </div>  
+    <div class='col-sm-6 text-right'>
+        <%= link_to 'Today', filter_path(:tag => params['tag'].present? ? params['tag'] : 'all', :date => go_to_date('today')), :class => "btn btn-outline-info" %>   
+        <%= link_to 'Tomorrow', filter_path(:tag => params['tag'].present? ? params['tag'] : 'all', :date => go_to_date('tomorrow')), :class => "btn btn-outline-info" %>        
+        <%= link_to 'All week', filter_path(:tag => params['tag'].present? ? params['tag'] : 'all', :date => go_to_date('all_week')), :class => "btn btn-outline-info" %>        
+    </div>
+</div>
