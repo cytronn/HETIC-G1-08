@@ -12,7 +12,7 @@ readURL = (input) ->
 
   reader.onload = (e) ->
     $('.yuumm-add-dish .yuumm-form-intro').css({
-      'background': "#000 url(#{e.target.result}) no-repeat center center",
+      'background': "#000 url('#{e.target.result}') no-repeat center center",
       'background-size': 'cover'
     });
 

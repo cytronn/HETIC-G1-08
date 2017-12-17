@@ -62,15 +62,16 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "HETIC-G1-08_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { :host => 'hetic-g1-8.herokuapp.com' }
+  # Mailing
+  config.action_mailer.default_url_options = { :host => 'https://hetic-g1-8.herokuapp.com/' }
   ActionMailer::Base.smtp_settings = {
-    :user_name            => ENV['SENDGRID_USERNAME'],
-    :password             => ENV['SENDGRID_PASSWORD'],
-    :address              => "smtp.sendgrid.net",
-    :port                 => 587,
-    :enable_starttls_auto => true,
-    :authentication       => :plain,
-    :domain               => "hetic-g1-8.herokuapp.com"
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'yourdomain.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

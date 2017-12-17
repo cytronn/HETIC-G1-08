@@ -12,9 +12,9 @@ class Dish < ApplicationRecord
   validates :description, presence: true, length: { minimum: 10 }
   validates :ingredients, presence: true, length: { minimum: 5 }
   validates :portions, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, on: :create
-  validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 5 }, on: :create
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 1 }, on: :create
   validates :delivery_at, presence: true
-  validate :future_date
+  validate :delivery_at_must_be_in_future
 
   :portions_left
   # TODO: Implement date validation
@@ -56,8 +56,8 @@ class Dish < ApplicationRecord
     end
   end
   
-  def future_date
-    if delivery_at < Time.now.beginning_of_day
+  def delivery_at_must_be_in_future
+    if delivery_at && delivery_at < Time.now.beginning_of_day
       self.errors.add(:delivery_at, "The delivery date has to be set in the future!")
     end
   end
