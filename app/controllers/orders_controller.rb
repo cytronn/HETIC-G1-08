@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
 
   def create
     @dish = Dish.find_by!(slug: params[:dish_slug])
-    @order = Order.new(order_params.merge(status: 'pending').merge(dish_id: @dish.id))
+    @order = Order.new(order_params.merge(status: 'pending').merge(dish_id: @dish.id).merge(amount: @dish.price * BigDecimal(order_params[:quantity])))
     if @order.quantity <= @dish.portions
       @dish.portions -= @order.quantity
       if @order.save && @dish.save
@@ -30,12 +30,12 @@ class OrdersController < ApplicationController
   end
   
   def pay
+    @currency = 'eur'
     @order = Order.find_by!(slug: params[:order_slug])
     if @order.status == Order.statuses[:paid]
       redirect_to @order
     end
     @dish = Dish.find_by!(slug: params[:dish_slug])
-    @amount = (@dish.price * @order.quantity * 100).to_i
     if request.post?
       customer = Stripe::Customer.create(
         :email => params[:stripeEmail],
@@ -43,11 +43,11 @@ class OrdersController < ApplicationController
       )
       charge = Stripe::Charge.create(
         :customer    => customer.id,
-        :amount      => @amount,
+        :amount      => (@order.amount * 100).to_i,
         :description => @dish.name,
-        :currency    => 'eur'
+        :currency    => @currency
       )
-      @order.update(status: Order.statuses[:paid], charge_id: charge.id, amount: @amount)
+      @order.update(status: Order.statuses[:paid], charge_id: charge.id)
       redirect_to @order
     end
   end

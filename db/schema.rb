@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216175400) do
+ActiveRecord::Schema.define(version: 20171217112237) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20171216175400) do
     t.integer "user_id"
     t.string "cover"
     t.string "slug"
-    t.integer "price"
+    t.decimal "price", precision: 8, scale: 2
     t.index ["slug"], name: "index_dishes_on_slug", unique: true
     t.index ["user_id"], name: "index_dishes_on_user_id"
   end
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20171216175400) do
     t.integer "status", default: 0
     t.datetime "expire_at"
     t.string "slug"
-    t.integer "amount"
+    t.decimal "amount", precision: 8, scale: 2
     t.string "charge_id"
     t.index ["dish_id"], name: "index_orders_on_dish_id"
     t.index ["slug"], name: "index_orders_on_slug", unique: true
