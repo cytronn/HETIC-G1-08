@@ -22,6 +22,9 @@ html,
 body {
   height: 100%;
   font-family: "Graphik";
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
 }
 body {
   display: flex;
@@ -48,8 +51,6 @@ body {
 
 .yuumm-header {
   height: 5.625rem;
-  margin-top: 1.5625rem;
-  margin-bottom: 1.5625rem;
   background-color: $white;
 }
 
