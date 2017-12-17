@@ -18,14 +18,14 @@
           </button>
           <div class="collapse navbar-collapse yuumm-navbar" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item <%= current_menu_item?(root_path) ? 'active' : '' %>">
-                <a class="nav-link" href="<%= root_path %>">Home</a>
+              <li class="nav-item">
+                <a class="nav-link <%= current_menu_item?(root_path, true) ? 'active' : '' %>" href="<%= root_path %>">Home</a>
               </li>
-              <li class="nav-item <%= current_menu_item?(orders_path) ? 'active' : '' %>">
-                <a class="nav-link" href="<%= orders_path %>">Orders</a>
+              <li class="nav-item">
+                <a class="nav-link <%= current_menu_item?(orders_path) ? 'active' : '' %>" href="<%= orders_path %>">Orders</a>
               </li>
-              <li class="nav-item <%= current_menu_item?(dishes_path) ? 'active' : '' %>">
-                <a class="nav-link" href="<%= dishes_path %>">Dishes</a>
+              <li class="nav-item">
+                <a class="nav-link <%= current_menu_item?(dishes_path) ? 'active' : '' %>" href="<%= dishes_path %>">Dishes</a>
               </li>
             </ul>
             <%# <form class="form-inline my-2 my-lg-0">

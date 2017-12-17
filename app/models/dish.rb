@@ -24,14 +24,26 @@ class Dish < ApplicationRecord
   }
 
   scope :tagged_with, lambda { |tags|
-    if tags != nil
+    if tags != 'all' and tags != nil
       tags_id = tags.split('/').map do |tag|
         Tag.find_by!(slug: tag).id
       end
       joins(:dishes_tags).where(:dishes_tags => { :tag_id => tags_id }).group("dishes.id").having('count(dishes_tags.tag_id)= ?', tags_id.count).distinct(true)
     end
   }
-  
+
+  scope :delivery_day, lambda { |day|
+    if day != 'all' and day != nil
+      if day == 'today'
+        where(delivery_at: Time.now.strftime("%d-%m-%Y"))      
+      elsif day == 'tomorrow' 
+        where(delivery_at: Time.now.tomorrow.to_date.strftime("%d-%m-%Y"))      
+      elsif day == 'week'
+        where(delivery_at: Date.today..Date.today + 7.days)
+      end
+    end
+  }
+
   def to_param
     slug
   end
@@ -39,7 +51,7 @@ class Dish < ApplicationRecord
   private
   def set_slug
     loop do
-      self.slug = self.name.parameterize + '-' + SecureRandom.uuid[1..8]
+      self.slug = self.name.parameterize + '-' + SecureRandom.uuid[1..7]
       break unless Dish.where(slug: slug).exists?
     end
   end

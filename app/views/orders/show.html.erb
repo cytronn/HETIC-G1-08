@@ -1,23 +1,40 @@
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Orders</li>
+  <li class="breadcrumb-item"><a href="<%= orders_path %>">Orders</a></li>
+  <li class="breadcrumb-item active">N°<%= @order.name %></li>
 </ol>
 <div class="mt-4">
-  <h1>My orders</h1>
-  <p>
-    <strong>Name:</strong>
-    <%= @order.name %>
-  </p>
-  <p>
-    <strong>User:</strong>
-    <%= @order.user_id %>
-  </p>
-  <p>
-    <strong>Note:</strong>
-    <%= @order.note %>
-  </p>
-  <p>
-    <strong>Quantity:</strong>
-    <%= @order.quantity %>
-  </p>
-  <%= link_to 'Back', orders_path %>
+  <h1>My order n°<%= @order.name %></h1>
+  <div class="card mt-4">
+    <h4 class="card-header">Informations</h4>
+    <div class="card-body">
+      <dt class="col-sm-3">Identifier</dt>
+      <dd class="col-sm-9"><%= @order.slug %></dd>
+      <dt class="col-sm-3">Cooker name</dt>
+      <dd class="col-sm-9"><%= @order.dish.user.first_name %> <%= @order.dish.user.last_name %></dd>
+      <dt class="col-sm-3">Cooker email</dt>
+      <dd class="col-sm-9"><%= @order.dish.user.email %></dd>
+      <% if @order.note? %>
+        <dt class="col-sm-3">Note</dt>
+        <dd class="col-sm-9"><%= @order.note %></dd>
+      <% end %>
+      <dt class="col-sm-3">Dish</dt>
+      <dd class="col-sm-9"><a href="<%= dish_url(slug: @order.dish.slug) %>"><%= @order.dish.name %></a></dd>
+      <dt class="col-sm-3">Quantity</dt>
+      <dd class="col-sm-9"><%= @order.quantity %></dd>
+      <dt class="col-sm-3">Amount</dt>
+      <dd class="col-sm-9"><%= '%.2f' % @order.amount %>€</dd>
+      <dt class="col-sm-3">Status</dt>
+      <dd class="col-sm-9">
+        <% if @order.status == Order.statuses[:paid] %>
+          Paid
+        <% elsif @order.status == Order.statuses[:accepted] %>
+          Accepted
+        <% elsif @order.status == Order.statuses[:rejected] %>
+          Rejected
+        <% else %>
+          Pending
+        <% end %>
+        </dd>
+    </div>
+  </div>
 </div>

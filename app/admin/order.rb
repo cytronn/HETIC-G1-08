@@ -18,7 +18,7 @@ ActiveAdmin.register Order do
     permitted
   end
 
-  permit_params :name, :note, :quantity, :status, :slug, :amount
+  permit_params :name, :note, :quantity, :status, :slug, :amount, :user_id
 
   before_action :only => [:show, :edit, :update, :delete] do
     @order = Order.find_by!(slug: params[:id])
