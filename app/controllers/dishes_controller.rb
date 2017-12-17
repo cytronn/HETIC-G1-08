@@ -16,6 +16,9 @@ class DishesController < ApplicationController
 
   def edit
     @dish = Dish.find_by!(slug: params[:slug])
+    if current_user.id != @dish.user_id 
+    redirect_to @dish
+    end
   end
 
   def create
