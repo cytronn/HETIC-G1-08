@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Regular'), local('Graphik-Regular'),
+        url('../fonts/Graphik-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Thin'), local('Graphik-Thin'),
+        url('../fonts/Graphik-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Medium'), local('Graphik-Medium'),
+        url('../fonts/Graphik-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Bold'), local('Graphik-Bold'),
+        url('../fonts/Graphik-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Light'), local('Graphik-Light'),
+        url('../fonts/Graphik-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Semibold'), local('Graphik-Semibold'),
+        url('../fonts/Graphik-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Black'), local('Graphik-Black'),
+        url('../fonts/Graphik-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Thin Italic'), local('Graphik-ThinItalic'),
+        url('../fonts/Graphik-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: local('Graphik Extralight'), local('Graphik-Extralight'),
+        url('../fonts/Graphik-Extralight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}

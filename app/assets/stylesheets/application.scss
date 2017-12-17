@@ -14,11 +14,14 @@
  *= stub "active_admin"
  */
 
- @import 'bootstrap';
+@import 'bootstrap';
+
+// DEFAULT
 
 html,
 body {
   height: 100%;
+  font-family: "Graphik";
 }
 body {
   display: flex;
@@ -34,9 +37,81 @@ body {
   width: 100%;
   height: 60px;
   line-height: 60px;
-  background-color: #f5f5f5;
+  background-color: $white;
 }
 
 .text-muted {
-  color: #868e96;
+  color: $black !important;
+}
+
+// CUSTOM
+
+.yuumm-header {
+  height: 5.625rem;
+  margin-top: 1.5625rem;
+  margin-bottom: 1.5625rem;
+  background-color: $white;
+}
+
+.navbar-brand {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.yuumm-navbar > ul > li > a {
+  color: $black !important;
+  transition: all ease-out 200ms;
+
+  &:hover {
+    color: $green !important;
+    transition: all ease-in 300ms;
+  }
+}
+
+.yuumm-navbar-button {
+  font-weight: 500;
+  color: $black;
+  line-height: 1;
+  margin-left: 0.9375rem; 
+  transition: all ease-out 200ms;
+
+  &:hover {
+    color: $green !important;
+    transition: all ease-in 300ms;
+    text-decoration: none;
+  }
+}
+
+.yuumm-navbar-button-danger {
+  @extend .yuumm-navbar-button;
+
+  &:hover {
+    color: $red !important;
+    transition: all ease-in 300ms;
+    text-decoration: none;
+  }
+}
+
+.yuumm-navbar-status {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 1.25rem;
+  margin-right: 0.625rem;
+}
+
+.yuumm-navbar-status-loggedOut {
+  @extend .yuumm-navbar-status;
+  background-color: $red;
+}
+
+.yuumm-navbar-status-loggedIn {
+  @extend .yuumm-navbar-status;
+  background-color: $green;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  height: 4.375rem;
+  border-top: 1px solid $black;
 }
