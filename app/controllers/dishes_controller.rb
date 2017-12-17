@@ -9,15 +9,15 @@ class DishesController < ApplicationController
   def show
     @dish = Dish.find_by!(slug: params[:slug])
   end
-  
+
   def new
     @dish = Dish.new
   end
-  
+
   def edit
     @dish = Dish.find_by!(slug: params[:slug])
   end
-  
+
   def create
     @user = User.find(current_user.id)
     @dish = @user.dishes.create(dish_params)
