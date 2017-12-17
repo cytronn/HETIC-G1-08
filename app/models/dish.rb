@@ -11,9 +11,12 @@ class Dish < ApplicationRecord
   validates :description, presence: true, length: { minimum: 10 }
   validates :ingredients, presence: true, length: { minimum: 5 }
   validates :portions, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, on: :create
+  validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 5 }, on: :create
+  validates :delivery_at, presence: true
+  validate :future_date
+
   :portions_left
   # TODO: Implement date validation
-  # validates :delivery_at, presence: true
 
   scope :in_organization, ->(id) {
     joins(:user).where(users: { organization_id: id })
@@ -32,6 +35,12 @@ class Dish < ApplicationRecord
     loop do
       self.slug = self.name.parameterize + '-' + SecureRandom.uuid[1..8]
       break unless Dish.where(slug: slug).exists?
+    end
+  end
+  
+  def future_date
+    if delivery_at < Time.now.beginning_of_day
+      self.errors.add(:delivery_at, "The delivery date has to be set in the future!")
     end
   end
 

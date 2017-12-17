@@ -6,6 +6,8 @@ class Order < ApplicationRecord
   belongs_to :dish
   belongs_to :user
 
+  validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+
   enum statuses: [:pending, :paid, :aborted]
 
   def to_param

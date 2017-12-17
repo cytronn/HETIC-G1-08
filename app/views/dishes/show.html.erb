@@ -68,7 +68,12 @@
                 <td><%= order.user.first_name %> <%= order.user.last_name %></td>
                 <td><%= order.note %></td>
                 <td><%= order.quantity %></td>
-                <td><%= '%.2f' % (order.amount / 100.to_f) %>€</td>
+                <td>
+                  <% if (order.amount) %>
+                    <%= '%.2f' % (order.amount / 100.to_f) %>€
+                  <% else %>
+                    XXX
+                  <% end %>
                 <td>
                   <%= link_to 'Accepter', @dish.slug, method: :delete, class: 'btn btn-primary btn-sm' %>
                   <%= link_to 'Refuser', @dish.slug, method: :delete, data: { confirm: 'Refuser' }, class: 'btn btn-danger btn-sm' %>
