@@ -7,7 +7,7 @@ Run the following command to start the project:
 ```bash
 $ bundle install
 $ rake db:setup
-$ rake db:seed
 $ rake db:migrate
+$ rake db:seed
 $ rails s
 ```
