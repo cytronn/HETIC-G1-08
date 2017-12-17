@@ -10,9 +10,9 @@ readURL = (input) ->
   if (input.files && input.files[0])
     reader = new FileReader()
 
-  reader.onload = () ->
+  reader.onload = (e) ->
     $('.yuumm-add-dish .yuumm-form-intro').css({
-      'background': "#000 url('#{URL.createObjectURL(input.files[0])}') no-repeat center center",
+      'background': "#000 url('#{e.target.result}') no-repeat center center",
       'background-size': 'cover'
     });
 
