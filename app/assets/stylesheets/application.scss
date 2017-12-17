@@ -21,7 +21,7 @@
 html,
 body {
   height: 100%;
-  font-family: "Graphik";
+  font-family: 'Graphik';
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: auto;
@@ -65,8 +65,10 @@ body {
   transition: all ease-out 200ms;
 
   &:hover {
-    color: $green !important;
     transition: all ease-in 300ms;
+  }
+  &.active {
+    color: $green !important;
   }
 }
 
@@ -74,7 +76,7 @@ body {
   font-weight: 500;
   color: $black;
   line-height: 1;
-  margin-left: 0.9375rem; 
+  margin-left: 0.9375rem;
   transition: all ease-out 200ms;
 
   &:hover {
