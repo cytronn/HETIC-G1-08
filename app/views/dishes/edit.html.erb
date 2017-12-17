@@ -4,9 +4,8 @@
   <li class="breadcrumb-item active">Edit</li>
 </ol>
 <div class="mt-4">
-  <%= link_to 'Back', dishes_path %>
+  <h1>Edit « <%= @dish.name %> »</h1>
   <div class="mt-4">
-    <h1>Edit « <%= @dish.name %> »</h1>
     <%= bootstrap_form_for(@dish) do |f| %>
       <% if @dish.errors.any? %>
         <div id="error_explanation">
@@ -22,7 +21,7 @@
         </div>
       <% end %>
       <% unless @dish.cover.url.nil? %>
-        <img class="img-fluid" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
+        <img class="img-fluid mb-4" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
         <%= f.file_field :cover %>
       <% else %>
         <%= f.file_field :cover %>
