@@ -4,7 +4,6 @@
     <p>By creating your ad, you can start selling your food. Do not forget to specify the list of ingredients used in your recipe. Your friends are waiting to taste your little dishes!</p>
   </div>
   <div class="mt-20">
-    <%# <h1>Add a dish</h1> %>
     <div class="col-sm-12 col-lg-8 mx-auto">
       <%= bootstrap_form_for @dish, :html => {:multipart => true} do |f| %>
         <% if @dish.errors.any? %>
@@ -26,9 +25,6 @@
         <%= f.date_select :delivery_at, id: :dish_delivery_at %>
         <% if @tags %>
           <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
-          <%# <%= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
-            <%# <%= tag.label(class:"yuumm-form-tag") { tag.check_box + tag.text } %>
-          <%# <% end %>
           <% end %>
         <%= f.submit 'Create' %>
       <% end %>

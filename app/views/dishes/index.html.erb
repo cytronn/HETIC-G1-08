@@ -1,54 +1,60 @@
-<ol class="breadcrumb">
-  <% if (params[:tags]) %>
-    <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
-    <li class="breadcrumb-item active">Filtered</li>
-  <% else %>
-    <li class="breadcrumb-item active">Dishes</li>
-  <% end %>
-</ol>
-<div class="mt-4">
-  <div class="d-flex">
-    <h1>Available dishes</h1>
-    <%= link_to '+ Add a dish', new_dish_path, :class => "yumm-link" %>
+<section class="yuumm-dishes">
+  <div class="yuumm-dishes-intro">
+    <span>
+      <h1>Hello <%= @current_user.first_name %>,<br /> felling a little peckish today?</h2>
+      <%= link_to 'Add a dish', new_dish_path, :class => "yuumm-arrow-link-light" %>
+    </span>
+    <p>You have a ton of new cooks & friends in your organization today, why not meet new people in front of a good meal!</p>
   </div>
-  <hr>
-  <div>
-    <div class="row">
-        <div class="col-sm-6">
-            <%= render "tags/list" %>        
-        </div>
-        <div class="col-sm-6 text-right">
-          <%= link_to 'Today', build_date_url('today'), :class => build_date_class_name('today') %>
-          <%= link_to 'Tomorrow', build_date_url('tomorrow'), :class => build_date_class_name('tomorrow') %>    
-          <%= link_to 'Week', build_date_url('week'), :class => build_date_class_name('week') %>  
-        </div>   
-    </div>           
-  </div>
-  <hr>
-  <div class="card-deck mt-4">
-    <% @dishes.each do |dish| %>
-    <div class="col-sm-4">
-      <div class="card" style="margin-bottom: 3rem;">
-        <img class="card-img-top" height="175px" src="<%= dish.cover.url %>" alt="<%= dish.ingredients %>" style="object-fit: cover;">
-        <div class="card-body">
-          <h4 class="card-title"><%= dish.name %></h4>
-          <p class="card-text"><%= dish.description %></p>
-          <% if dish.user.id == current_user.id %>
-            <%= link_to 'Show', dish_path(slug: dish.slug), :class => "btn btn-primary" %>
-            <%= link_to 'Edit', edit_dish_path(slug: dish.slug), :class => "btn btn-warning" %>
-          <%else%>
-            <%= link_to 'See details', dish_path(slug: dish.slug), :class => "btn btn-primary" %>
-          <%end%>
-        </div>
-        <div class="card-footer">
-          <% if dish.portions === 0 %>
-            <small class="text-muted">Sold out</small>
-          <%else%>
-            <small class="text-muted"><%= dish.portions %> remaining dishes</small>
-          <%end%>
-        </div>
-      </div>
+  <div class="mt-4">
+    <div>
+      <div class="row">
+          <div class="col-sm-6">
+              <%= render "tags/list" %>        
+          </div>
+          <div class="col-sm-6 text-right">
+            <%= link_to 'Today', build_date_url('today'), :class => build_date_class_name('today') %>
+            <%= link_to 'Tomorrow', build_date_url('tomorrow'), :class => build_date_class_name('tomorrow') %>    
+            <%= link_to 'Week', build_date_url('week'), :class => build_date_class_name('week') %>  
+          </div>   
+      </div>           
     </div>
-    <% end %>
+    <div class="card-deck mt-4 yuumm-dish-card-container">
+      <% @dishes.each do |dish| %>
+      <%# ⚠️ Temporary fix %>
+      <card class="yuumm-dish-card" style="background-image: url('<%= dish.cover.url %>');">
+        <div class="yuumm-dish-card-wrapper">
+          <div>
+            <span>
+              <p><%= dish.delivery_at %></p>
+              <% if dish.user.id == current_user.id %>
+                <%= link_to 'Edit', edit_dish_path(slug: dish.slug), :class => "yuumm-link-light" %>
+              <%end%>
+            </span>
+          </div>
+          <div>
+            <span>
+              <p>€ <%= dish.price %></p>
+              <% if dish.portions === 0 %>
+                <p>
+                  <span class="yuumm-navbar-status-loggedOut"></span>
+                  Sold out
+                </p>
+              <%else%>
+                <p>
+                  <span class="yuumm-navbar-status-loggedIn"></span>
+                  <%= dish.portions %> remaining dishes
+                </p>
+              <%end%>
+            </span>
+            <hr />
+            <h4><%= dish.name %></h4>
+            <p><%= dish.description %></p>
+            <%= link_to 'See', dish_path(slug: dish.slug), :class => "yuumm-link-light" %>
+          </div>
+        </div>
+      </card>
+      <% end %>
+    </div>
   </div>
-</div>
+</section>

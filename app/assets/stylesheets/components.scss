@@ -57,7 +57,7 @@
   }
 }
 
-.yumm-link {
+.yuumm-link {
   @extend .yuumm-arrow-link-dark;
   &:before {
     display: none;
@@ -66,6 +66,11 @@
     color: $green;
     transform: translateX(0);
   }
+}
+
+.yuumm-link-light {
+  @extend .yuumm-link;
+  color: $white;
 }
 
 // FORM

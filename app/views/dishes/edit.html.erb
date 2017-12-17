@@ -1,39 +1,40 @@
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
-  <li class="breadcrumb-item"><a href="<%= dish_path(slug: @dish.slug) %>"><%= @dish.name %></a></li>
-  <li class="breadcrumb-item active">Edit</li>
-</ol>
-<div class="mt-4">
-  <h1>Edit « <%= @dish.name %> »</h1>
-  <div class="mt-4">
-    <%= bootstrap_form_for(@dish) do |f| %>
-      <% if @dish.errors.any? %>
-        <div id="error_explanation">
-            <h2>
-              Watch out! 😮
-              <%= pluralize(@dish.errors.count, "error") %> prevent us from accepting your dish:
-            </h2>
-          <ul>
-            <% @dish.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <% unless @dish.cover.url.nil? %>
-        <img class="img-fluid mb-4" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
-        <%= f.file_field :cover %>
-      <% else %>
-        <%= f.file_field :cover %>
-      <% end %>
-      <%= f.text_field :name %>
-      <%= f.text_area :description %>
-      <%= f.text_area :ingredients %>
-      <%= f.number_field :portions %>
-      <%= f.number_field :price %>
-      <%= f.date_select :delivery_at %>
-      <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
-      <%= f.submit 'Save', class: 'btn btn-success' %>
-    <% end %>
+<a class="yuumm-link" href="<%= dish_path(slug: @dish.slug) %>">Cancel</a>
+<section class="yuumm-form yuumm-add-dish">
+  <div class="yuumm-form-intro">
+    <h1>Edit <%= @dish.name %></h1>
+    <p>People read carefully all the details you add to your sheet, make sure to present you rdish in its best light!</p>
   </div>
-</div>
+  <div class="mt-20">
+    <div class="col-sm-12 col-lg-8 mx-auto">
+      <%= bootstrap_form_for(@dish) do |f| %>
+        <% if @dish.errors.any? %>
+          <div id="error_explanation">
+              <h2>
+                Watch out! 😮
+                <%= pluralize(@dish.errors.count, "error") %> prevent us from accepting your dish:
+              </h2>
+            <ul>
+              <% @dish.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% unless @dish.cover.url.nil? %>
+          <img class="img-fluid mb-4" src="<%= @dish.cover.url %>" style="height: 350px; width: 50%; display: block; background-color: grey;" data-holder-rendered="true">
+          <%= f.file_field :cover %>
+        <% else %>
+          <%= f.file_field :cover %>
+        <% end %>
+        <%= f.text_field :name %>
+        <%= f.text_area :description %>
+        <%= f.text_area :ingredients %>
+        <%= f.number_field :portions %>
+        <%= f.number_field :price %>
+        <%= f.date_select :delivery_at %>
+        <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
+        <%= f.submit 'Save' %>
+      <% end %>
+    </div>
+  </div>
+</section>

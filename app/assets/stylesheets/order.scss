@@ -26,7 +26,7 @@
     cursor: pointer;
 
     &:before {
-      content: 'Import a photo';
+      content: 'Import or drag and drop a photo';
       position: relative;
       left: -6px;
       top: -1px;
@@ -37,7 +37,9 @@
       width: 12.5rem;
       height: 12.5rem;
       color: $black;
+      text-align: center;
       margin: 0 auto;
+      padding: 0 1.25rem;
       border: 1px dashed #70D49E;
       background-color: $white;
       transition: all ease-out 200ms;

@@ -35,14 +35,10 @@
                 <li class="nav-item desktop-hide"><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %> </li>
               <% end %>
             </ul>
-            <%# <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> %>
             <div class="mobile-hide">
-                <% if @current_user %>  
+              <% if @current_user %>  
                 <span class="yuumm-navbar-status-loggedIn"></span>
-                <%= link_to 'Account', profile_edit_url, class: 'yuumm-navbar-button'  %>
+                <a class="yuumm-navbar-button" href="<%= profile_edit_url %>">Hi, <%= @current_user.first_name %></a>
                 <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'yuumm-navbar-button-danger' %>
               <% else %>
               <span class="yuumm-navbar-status-loggedOut"></span>
