@@ -1,21 +1,26 @@
-<H1>Sign up</H1>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-  <%= bootstrap_form_for(@user) do |f| %>
-    <%= f.email_field :email %>
-    <%= f.text_field :first_name %>    
-    <%= f.text_field :last_name %>
-    <% if @organizations %>
-    <%= f.select :organization_id, options_for_select(@select_organizations), 
-    {}, { class: "form form-group form-control" } %>
-    <% else %>
-        <%= bootstrap_form_for(Organization.new) do |o| %>
-            <%= o.text_field :name %>
-        <% end %>
-    <% end %>      
-    <%= f.password_field :password %>
-    <%= f.password_field :password_confirmation %>   
-    <%= f.submit "Sign up" %>
+<section class="yumm-login">
+  <div class="yumm-login-intro">
+    <h2>Create your account</h2>
+    <p>People are already getting in line to order year dishes! Just create you account and join an organizationsto start the journey!</p>
+  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+    <%= bootstrap_form_for(@user) do |f| %>
+      <%= f.email_field :email %>
+      <%= f.text_field :first_name %>    
+      <%= f.text_field :last_name %>
+      <% if @organizations %>
+      <%= f.select :organization_id, options_for_select(@select_organizations), 
+      {}, { class: "form form-group form-control" } %>
+      <% else %>
+          <%= bootstrap_form_for(Organization.new) do |o| %>
+              <%= o.text_field :name %>
+          <% end %>
+      <% end %>      
+      <%= f.password_field :password %>
+      <%= f.password_field :password_confirmation %>   
+      <%= f.submit "Sign up" %>
+    <% end %>
   <% end %>
-<% end %>
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
+</section>

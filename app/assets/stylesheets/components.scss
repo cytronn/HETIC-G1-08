@@ -31,9 +31,10 @@
       transition: all ease-in 300ms;
       text-decoration: none;
     }
+    cursor: pointer;
     color: $white;
     text-decoration: none;
-    transform: translateX(5px);
+    transform: translateX(3px);
     transition: all ease-in 300ms;
   }
 }
