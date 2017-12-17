@@ -27,20 +27,29 @@
               <li class="nav-item">
                 <a class="nav-link <%= current_menu_item?(dishes_path) ? 'active' : '' %>" href="<%= dishes_path %>">Dishes</a>
               </li>
+              <% if @current_user %>  
+                <li class="nav-item desktop-hide"><%= link_to 'Account', profile_edit_url, class: 'nav-link' %></li>
+                <li class="nav-item desktop-hide"><%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+              <% else %>
+                <li class="nav-item desktop-hide"><%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %></li>
+                <li class="nav-item desktop-hide"><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %> </li>
+              <% end %>
             </ul>
             <%# <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form> %>
-            <% if @current_user %>  
-              <span class="yuumm-navbar-status-loggedIn"></span>
-              <%= link_to 'Account', profile_edit_url, class: 'yuumm-navbar-button'  %>
-              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'yuumm-navbar-button-danger' %>
-            <% else %>
-            <span class="yuumm-navbar-status-loggedOut"></span>
-              <%= link_to 'Sign in', new_user_session_path, class: 'yuumm-navbar-button' %>
-              <%= link_to 'Sign up', new_user_registration_path, class: 'yuumm-navbar-button' %> 
-            <% end %>
+            <div class="mobile-hide">
+                <% if @current_user %>  
+                <span class="yuumm-navbar-status-loggedIn"></span>
+                <%= link_to 'Account', profile_edit_url, class: 'yuumm-navbar-button'  %>
+                <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'yuumm-navbar-button-danger' %>
+              <% else %>
+              <span class="yuumm-navbar-status-loggedOut"></span>
+                <%= link_to 'Sign in', new_user_session_path, class: 'yuumm-navbar-button' %>
+                <%= link_to 'Sign up', new_user_registration_path, class: 'yuumm-navbar-button' %> 
+              <% end %>
+            </div>
           </div>
         </div>
       </nav>

@@ -47,6 +47,18 @@ body {
   color: $black !important;
 }
 
+.desktop-hide{
+  @media screen and (min-width: 992px) {
+    display: none;
+  }
+}
+
+.mobile-hide{
+  @media screen and (max-width: 992px) {
+    display: none;
+  }
+}
+
 // CUSTOM
 
 .yuumm-header {
