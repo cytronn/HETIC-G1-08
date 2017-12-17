@@ -30,7 +30,7 @@
         <%= f.text_area :description %>
         <%= f.text_area :ingredients %>
         <%= f.number_field :portions %>
-        <%= f.number_field :price %>
+        <%= f.number_field :price, :step => '0.01' %>
         <%= f.date_select :delivery_at %>
         <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
         <%= f.submit 'Save' %>
