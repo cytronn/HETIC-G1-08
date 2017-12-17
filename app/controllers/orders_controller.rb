@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
       if @order.save && @dish.save
         redirect_to dish_order_pay_url(@dish, @order)
       else
+        @dish.portions += @order.quantity
         render :new
       end
     end
