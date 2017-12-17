@@ -119,3 +119,21 @@ body {
   height: 4.375rem;
   border-top: 1px solid $black;
 }
+
+.not-found-h1{
+  margin-top: 10rem;
+
+  span{
+    color: $green;
+  }
+}
+
+.not-found-h2{
+  margin-top: 2rem;  
+}
+
+.not-found-link{
+  display: block;
+  margin-top: 1rem; 
+  color: $green;  
+}
