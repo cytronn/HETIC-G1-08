@@ -1,0 +1,22 @@
+@import 'variables';
+
+.yuumm-account {
+  max-width: 100% !important;
+
+  .yuumm-form-intro {
+    height: 13.75rem !important;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: $red;
+    letter-spacing: 0;
+    margin: 1.25rem 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: $black;
+    letter-spacing: 0;
+  }
+}
