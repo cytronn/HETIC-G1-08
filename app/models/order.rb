@@ -10,6 +10,10 @@ class Order < ApplicationRecord
 
   enum statuses: [:pending, :paid, :aborted]
 
+  scope :by_user, lambda { |user_id|
+    joins(:user).where(users: { id: user_id })
+  }
+
   def to_param
     slug
   end
@@ -31,11 +35,11 @@ class Order < ApplicationRecord
     end
   end
 
-  scope :awaiting_payment, -> {
+  scope :awaiting_payment, lambda {
     where(status: :pending)
   }
 
-  scope :paid, -> {
+  scope :paid, lambda {
     where(status: :paid)
   }
 

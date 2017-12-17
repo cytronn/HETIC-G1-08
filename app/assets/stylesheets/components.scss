@@ -1,0 +1,58 @@
+@import 'variables';
+
+// ARROW LINK
+
+.yuumm-arrow-link {
+  display: flex;
+  font-size: 0.875rem;
+  color: $white;
+  letter-spacing: 0;
+  line-height: 2rem;
+  transition: all ease-out 200ms;
+
+  &:before {
+    content: '>';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $black;
+    width: 2.5rem;
+    height: 1.875rem;
+    background-color: $white;
+    margin-right: 0.75rem;
+    border-radius: 1.6875rem;
+    transition: all ease-out 200ms;
+  }
+  
+  &:hover {
+    &:before {
+      color: $white;
+      background-color: $green;
+      transition: all ease-in 300ms;
+      text-decoration: none;
+    }
+    cursor: pointer;
+    color: $white;
+    text-decoration: none;
+    transform: translateX(3px);
+    transition: all ease-in 300ms;
+  }
+}
+
+.yuumm-arrow-link-light {
+  @extend .yuumm-arrow-link;
+}
+
+.yuumm-arrow-link-dark {
+  @extend .yuumm-arrow-link;
+  color: $black;
+
+  &:before {
+    color: $white;
+    background-color: $black;
+  }
+
+  &:hover {
+    color: $black;
+  }
+}

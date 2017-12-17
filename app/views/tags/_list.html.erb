@@ -1,0 +1,3 @@
+<% Tag.all.each do |tag| %>
+  <%= link_to tag.name, build_tags_url(tag), :class => build_tag_class_name(tag) %>
+<% end %>
