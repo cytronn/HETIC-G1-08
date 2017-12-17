@@ -1,10 +1,22 @@
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Dishes</li>
+  <% if (params[:tags]) %>
+    <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
+    <li class="breadcrumb-item active">Filtered by tags</li>
+  <% else %>
+    <li class="breadcrumb-item active">Dishes</li>
+  <% end %>
 </ol>
-<%= render "tags/index" %>
 <div class="mt-4">
-  <h1>Available dishes</h1>
-  <%= link_to '+ Add a dish', new_dish_path %>
+  <div class="d-flex">
+    <h1>Available dishes</h1>
+    <%= link_to '+ Add a dish', new_dish_path, :class => "ml-auto mt-3" %>
+  </div>
+  <hr>
+  <div>
+    Filtres:
+    <%= render "tags/list" %>
+  </div>
+  <hr>
   <div class="card-deck mt-4">
     <% @dishes.each do |dish| %>
     <div class="col-sm-4">
@@ -13,7 +25,11 @@
         <div class="card-body">
           <h4 class="card-title"><%= dish.name %></h4>
           <p class="card-text"><%= dish.description %></p>
-          <%= link_to 'See details', dish_path(slug: dish.slug), :class => "btn btn-primary" %>
+          <% if dish.user.id == current_user.id %>
+            <%= link_to 'Edit', edit_dish_path(slug: dish.slug), :class => "btn btn-warning" %>
+          <%else%>
+            <%= link_to 'See details', dish_path(slug: dish.slug), :class => "btn btn-primary" %>
+          <%end%>
         </div>
         <div class="card-footer">
           <% if dish.portions === 0 %>
