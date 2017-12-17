@@ -32,6 +32,9 @@ gem 'jbuilder', '~> 2.5'
 # The administration frameowrk for ruby
 gem 'activeadmin'
 
+# Use SendGrid
+gem 'sendgrid-ruby'
+
 # Use stripe to provice a streamlined, mobile-ready payment experience.
 gem 'stripe'
 
