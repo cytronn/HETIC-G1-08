@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :users, :controllers  => { :registrations => 'custom_devise/registrations' }
+  devise_for :users, :controllers  => { :registrations => 'custom_devise/registrations', confirmations: 'confirmations' }
   resources :users
   as :user do 
     get 'profile/edit' => 'devise/registrations#edit'
