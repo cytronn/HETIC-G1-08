@@ -1,13 +1,13 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_non_cooker, only: [:new, :create, :pay]
+  before_action :set_order, only: [:show, :edit, :update, :pay, :accept, :reject, :destroy]
 
   def index
     @orders = Order.all.by_user(current_user.id)
   end
 
   def show
-    @order = Order.find_by!(slug: params[:slug])
   end
 
   def new
@@ -31,7 +31,6 @@ class OrdersController < ApplicationController
   
   def pay
     @currency = 'eur'
-    @order = Order.find_by!(slug: params[:order_slug])
     if @order.status == Order.statuses[:paid]
       redirect_to @order
     end
@@ -48,7 +47,24 @@ class OrdersController < ApplicationController
         :currency    => @currency
       )
       @order.update(status: Order.statuses[:paid], charge_id: charge.id)
-      redirect_to @order
+      redirect_to @order, notice: 'Order was successfully created.' 
+    end
+  end
+
+  def accept
+    @order.status = Order.statuses[:accepted]
+    if @order.save
+      redirect_to @order.dish, notice: 'Order was successfully accepted.' 
+    end
+  end
+  
+  def reject
+    if @order.charge_id
+      Stripe::Refund.create(charge: @order.charge_id)
+    end
+    @order.status = Order.statuses[:rejected]
+    if @order.save
+      redirect_to @order.dish, notice: 'Order was successfully rejected.' 
     end
   end
 
@@ -58,8 +74,21 @@ class OrdersController < ApplicationController
   end
 
   private
+    def authenticate_non_cooker
+      if (params[:dish_slug])
+        dish = Dish.find_by!(slug: params[:dish_slug])
+        if dish.user.id == current_user.id
+          redirect_to dishes_url
+        end
+      end
+    end
     def set_order
-      @order = Order.find_by!(slug: params[:slug])
+      @order = Order.by_user(current_user.id)
+      if params[:order_slug]
+        @order = @order.find_by!(slug: params[:order_slug]) 
+      else params[:slug]
+        @order = @order.find_by!(slug: params[:slug])
+      end
     end
     def order_params
       params

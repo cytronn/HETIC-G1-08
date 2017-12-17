@@ -22,7 +22,7 @@ class DishesController < ApplicationController
     @user = User.find(current_user.id)
     @dish = @user.dishes.create(dish_params)
     if @dish.save
-      redirect_to @dish
+      redirect_to @dish, notice: 'Dish was successfully created.' 
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class DishesController < ApplicationController
   def update
     @dish = Dish.find_by!(slug: params[:slug])
     if @dish.update(dish_params)
-      redirect_to @dish
+      redirect_to @dish, notice: 'Dish was successfully updated.' 
     else
       render 'edit'
     end
@@ -40,7 +40,7 @@ class DishesController < ApplicationController
   def destroy
     @dish = Dish.find(params[:slug])
     @dish.destroy
-    redirect_to dishes_path
+    redirect_to dishes_path, notice: 'Dish was successfully deleted.' 
   end
   
   private

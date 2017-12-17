@@ -23,6 +23,18 @@
       <dd class="col-sm-9"><%= @order.quantity %></dd>
       <dt class="col-sm-3">Amount</dt>
       <dd class="col-sm-9"><%= '%.2f' % @order.amount %>€</dd>
+      <dt class="col-sm-3">Status</dt>
+      <dd class="col-sm-9">
+        <% if @order.status == Order.statuses[:paid] %>
+          Paid
+        <% elsif @order.status == Order.statuses[:accepted] %>
+          Accepted
+        <% elsif @order.status == Order.statuses[:rejected] %>
+          Rejected
+        <% else %>
+          Pending
+        <% end %>
+        </dd>
     </div>
   </div>
 </div>

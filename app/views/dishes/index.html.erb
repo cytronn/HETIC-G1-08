@@ -26,6 +26,7 @@
           <h4 class="card-title"><%= dish.name %></h4>
           <p class="card-text"><%= dish.description %></p>
           <% if dish.user.id == current_user.id %>
+            <%= link_to 'Show', dish_path(slug: dish.slug), :class => "btn btn-primary" %>
             <%= link_to 'Edit', edit_dish_path(slug: dish.slug), :class => "btn btn-warning" %>
           <%else%>
             <%= link_to 'See details', dish_path(slug: dish.slug), :class => "btn btn-primary" %>

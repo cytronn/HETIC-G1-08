@@ -8,7 +8,7 @@ class Order < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
-  enum statuses: [:pending, :paid, :aborted]
+  enum statuses: [:pending, :paid, :accepted, :rejected]
 
   scope :by_user, lambda { |user_id|
     joins(:user).where(users: { id: user_id })

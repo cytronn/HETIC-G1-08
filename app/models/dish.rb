@@ -39,7 +39,7 @@ class Dish < ApplicationRecord
   private
   def set_slug
     loop do
-      self.slug = self.name.parameterize + '-' + SecureRandom.uuid[1..8]
+      self.slug = self.name.parameterize + '-' + SecureRandom.uuid[1..7]
       break unless Dish.where(slug: slug).exists?
     end
   end

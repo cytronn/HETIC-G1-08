@@ -6,14 +6,15 @@
   <h1><%= @dish.name %></h1>
   <hr>
   <div class="d-flex justify-content-end">
-    <% if @dish.portions > 0 %>
-      <%= link_to 'Order now !', new_dish_order_url(@dish.slug), class: 'btn btn-primary mr-auto p-2' %>
-    <% else %>
-      <button type="button" class="btn btn-primary mr-auto p-2 disabled" disabled>Sold out !</button>
-    <% end %>
     <% if @dish.user.id == current_user.id %>
       <%= link_to 'Edit', edit_dish_path(slug: @dish.slug), class: 'btn btn-warning p-2' %>
       <%= link_to 'Destroy', @dish.slug, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger ml-2 p-2' %>
+    <% else %>
+      <% if @dish.portions > 0 %>
+        <%= link_to 'Order now !', new_dish_order_url(@dish.slug), class: 'btn btn-primary mr-auto p-2' %>
+      <% else %>
+        <button type="button" class="btn btn-primary mr-auto p-2 disabled" disabled>Sold out !</button>
+      <% end %>
     <% end %>
   </div>
   <hr>
@@ -61,27 +62,39 @@
                 <th scope="col">Note</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Amount</th>
+                <th scope="col">Status</th>
                 <th scope="col" colspan="2">Actions</th>
               </tr>
             </thead>
             <tbody> 
-              <% @dish.orders.each do |order| %>
+              <% @dish.orders.reverse.each do |order| %>
                 <tr>
                   <td scope="row"><%= order.name %></td>
                   <td><%= order.slug %></td>
                   <td><%= order.user.first_name %> <%= order.user.last_name %></td>
                   <td><%= order.note %></td>
                   <td><%= order.quantity %></td>
+                  <td><%= '%.2f' % (order.amount / 100.to_f) %>€</td>
                   <td>
-                    <% if (order.amount) %>
-                      <%= '%.2f' % (order.amount / 100.to_f) %>€
+                    <% if order.status == Order.statuses[:paid] %>
+                      Paid
+                    <% elsif order.status == Order.statuses[:accepted] %>
+                      Accepted
+                    <% elsif order.status == Order.statuses[:rejected] %>
+                      Rejected
                     <% else %>
-                      XXX
+                      Pending
                     <% end %>
+                  </td>
                   <td>
-                  <td>
-                    <%= link_to 'Accepter', @dish.slug, method: :delete, class: 'btn btn-primary btn-sm' %>
-                    <%= link_to 'Refuser', @dish.slug, method: :delete, data: { confirm: 'Refuser' }, class: 'btn btn-danger btn-sm' %>
+                    <% if order.status < 2 %>
+                      <% if order.status == Order.statuses[:paid] %>
+                        <%= link_to 'Accepter', order_accept_path(order_slug: order.slug), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary btn-sm' %>
+                      <% end %>
+                      <%= link_to 'Refuser', order_reject_path(order_slug: order.slug), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                    <% else %>
+                    -
+                    <% end %>
                   </td>
                 </tr>
               <% end %>

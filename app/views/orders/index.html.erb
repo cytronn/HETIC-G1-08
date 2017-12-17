@@ -14,11 +14,12 @@
             <th scope="col">Note</th>
             <th scope="col">Quantity</th>
             <th scope="col">Amount</th>
+            <th scope="col">Status</th>
             <th scope="col" colspan="2">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <% @orders.each do |order| %>
+          <% @orders.reverse.each do |order| %>
             <tr>
               <td scope="row"><%= order.name %></td>
               <td><%= order.slug %></td>
@@ -26,16 +27,25 @@
               <td><%= order.note? ? order.note : '-' %></td>
               <td><%= order.quantity %></td>
               <td><%= '%.2f' % order.amount %>€</td>
-              <% if order.status == 0 %>
-                <td>
+              <td>
+                <% if order.status == Order.statuses[:paid] %>
+                  Paid
+                <% elsif order.status == Order.statuses[:accepted] %>
+                  Accepted
+                <% elsif order.status == Order.statuses[:rejected] %>
+                  Rejected
+                <% else %>
+                  Pending
+                <% end %>
+              </td>
+              <td>
+                <% if order.status == 0 %>
                   <%= link_to 'Pay', dish_order_pay_url(order.dish, order), class: 'btn btn-primary btn-sm' %>
                   <%= link_to 'Cancel', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-                </td>
-              <% else %>
-                <td>
+                <% else %>
                   <%= link_to 'Show', order, class: 'btn btn-primary btn-sm' %>
-                </td>
-              <% end %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
