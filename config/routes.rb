@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     post 'users/sign_up', to: 'devise/registrations#create'
   end
 
-  #search by tags routes 
-  get 'dishes/t=:tag', to: 'dishes#index', as: "tag"
+  # filtering dishes index
+  get 'dishes/t=:tag/d=:date', to: 'dishes#index', defaults: { tag: 'all', date: 'all' },  as: "filter"
     
   resources :orders, only: [:index, :show, :edit, :update], param: :slug
 

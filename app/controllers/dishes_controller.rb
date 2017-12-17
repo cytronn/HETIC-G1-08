@@ -7,8 +7,8 @@ class DishesController < ApplicationController
     user = User.find(current_user.id)
     @tags = Tag.all
     
-    if params[:tag] and params[:tag] != 'all'
-      @dishes = Dish.in_organization(user.organization_id).filter(params[tags = :tag])
+    if params[:tag] and params[:date]
+      @dishes = Dish.in_organization(user.organization_id).filter(params[tags = :tag], params[date = :date] )
     else
       @dishes = Dish.in_organization(user.organization_id)
     end

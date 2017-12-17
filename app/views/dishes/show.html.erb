@@ -98,7 +98,7 @@
     <dd class="col-sm-9">
       <ul>
         <% @dish.tags.each do |tag| %>
-          <%= link_to tag.name, tag_path(tag.name), :class => "btn btn-outline-warning" %>
+          <%= link_to tag.name, filter_path(tag.name), :class => "btn btn-outline-warning" %>
         <% end %>
       </ul>
     </dd>

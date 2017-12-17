@@ -20,8 +20,16 @@ class Dish < ApplicationRecord
   }
 
   scope :tagged_with, ->(tags_id) {
-    joins(:dishes_tags).where(:dishes_tags => { :tag_id => tags_id }).group("dishes.id").having('count(dishes_tags.tag_id)= ?', tags_id.count).distinct(true)
+    if tags_id[0] != "all"
+      joins(:dishes_tags).where(:dishes_tags => { :tag_id => tags_id }).group("dishes.id").having('count(dishes_tags.tag_id)= ?', tags_id.count).distinct(true)      
+    else
+      Dish.all
+    end
   }
+
+  scope :delivery_today, -> { where(delivery_at: date.today.strftime("%m-%d-%Y")) }
+
+  scope :delivery_tomorrow, -> { where(delivery_at: date.tomorrow.strftime("%m-%d-%Y")) }
   
   def to_param
     slug
@@ -35,11 +43,16 @@ class Dish < ApplicationRecord
     end
   end
 
-  def self.filter(tags)
+  private
+  def self.filter(tags, date)
     tags_id = [];
-    tags.split(',').map do |tag|
-      curr_tag = Tag.find_by!(name: tag)
-      tags_id.push(curr_tag.id)
+    if tags = 'all' do
+      tags_id.push('all')      
+    else
+      tags.split(',').map do |tag|
+        curr_tag = Tag.find_by!(name: tag)
+        tags_id.push(curr_tag.id)
+      end
     end
     Dish.tagged_with(tags_id)
   end
