@@ -127,7 +127,7 @@ body {
 
 .footer .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 4.375rem;
   border-top: 1px solid $black;
 }
@@ -148,4 +148,7 @@ body {
   display: block;
   margin-top: 1rem; 
   color: $green;  
+}
+
+.card-hearder-order-infos{
 }
