@@ -24,7 +24,7 @@ class Dish < ApplicationRecord
   }
 
   scope :tagged_with, lambda { |tags|
-    if tags != nil
+    if tags != 'all' and tags != nil
       tags_id = tags.split('/').map do |tag|
         Tag.find_by!(slug: tag).id
       end
@@ -32,10 +32,18 @@ class Dish < ApplicationRecord
     end
   }
 
-  scope :delivery_today, -> { where(delivery_at: date.today.strftime("%m-%d-%Y")) }
+  scope :delivery_day, lambda { |day|
+    if day != 'all' and day != nil
+      if day == 'today'
+        where(delivery_at: Time.now.strftime("%d-%m-%Y"))      
+      elsif day == 'tomorrow' 
+        where(delivery_at: Time.now.tomorrow.to_date.strftime("%d-%m-%Y"))      
+      elsif day == 'week'
+        where(delivery_at: Date.today..Date.today + 7.days)
+      end
+    end
+  }
 
-  scope :delivery_tomorrow, -> { where(delivery_at: date.tomorrow.strftime("%m-%d-%Y")) }
-  
   def to_param
     slug
   end

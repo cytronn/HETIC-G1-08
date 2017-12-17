@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :organizations, only: [:new, :create]
   resources :dishes, param: :slug do
     collection do
-      get "filter/*tags", to: 'dishes#index', as: 'tags'
+      get "filter/*tags/:date", to: 'dishes#index', defaults: {tags: 'all', date: 'all'}, as: 'filters'
     end
     resources :orders, only: [:new, :create], param: :slug do
       get 'pay' 
