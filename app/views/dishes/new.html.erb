@@ -1,32 +1,37 @@
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<%= dishes_path %>">Dishes</a></li>
-  <li class="breadcrumb-item active">New</li>
-</ol>
-<div class="mt-4">
-  <h1>Add a dish</h1>
-  <div class="mt-4">
-    <%= bootstrap_form_for @dish, :html => {:multipart => true} do |f| %>
-      <% if @dish.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@dish.errors.count, "error") %> prohibited this dish from being saved:</h2>
-          <ul>
-          <% @dish.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <%= f.file_field :cover %>
-      <%= f.text_field :name, id: :dish_name %>
-      <%= f.text_field :description, id: :dish_description %>
-      <%= f.text_area :ingredients, id: :dish_ingredients %>
-      <%= f.number_field :portions, id: :dish_portions %>
-      <%= f.number_field :price, id: :dish_price %>
-      <%= f.date_select :delivery_at, id: :dish_delivery_at %>
-      <% if @tags %>
-        <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>  
-        <% end %>
-      <%= f.submit 'Save', class: 'btn btn-success' %>
-    <% end %>
+<section class="yuumm-form yuumm-add-dish">
+  <div class="yuumm-form-intro">
+    <h1>Add a dish</h1>
+    <p>By creating your ad, you can start selling your food. Do not forget to specify the list of ingredients used in your recipe. Your friends are waiting to taste your little dishes!</p>
   </div>
-</div>
+  <div class="mt-20">
+    <%# <h1>Add a dish</h1> %>
+    <div class="col-sm-12 col-lg-8 mx-auto">
+      <%= bootstrap_form_for @dish, :html => {:multipart => true} do |f| %>
+        <% if @dish.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@dish.errors.count, "error") %> prohibited this dish from being saved:</h2>
+            <ul>
+            <% @dish.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= f.file_field :cover %>
+        <%= f.text_field :name, id: :dish_name %>
+        <%= f.text_field :description, id: :dish_description %>
+        <%= f.text_area :ingredients, id: :dish_ingredients %>
+        <%= f.number_field :portions, id: :dish_portions %>
+        <%= f.number_field :price, id: :dish_price %>
+        <%= f.date_select :delivery_at, id: :dish_delivery_at %>
+        <% if @tags %>
+          <%= f.collection_check_boxes :tag_ids, @tags, :id, :name %>
+          <%# <%= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
+            <%# <%= tag.label(class:"yuumm-form-tag") { tag.check_box + tag.text } %>
+          <%# <% end %>
+          <% end %>
+        <%= f.submit 'Create' %>
+      <% end %>
+    </div>
+  </div>
+</section>
